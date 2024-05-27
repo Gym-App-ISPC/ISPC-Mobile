@@ -6,18 +6,24 @@ import android.os.Bundle;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.ispc.gymapp.R;
 import com.ispc.gymapp.model.User;
 import com.ispc.gymapp.views.activities.ActivityFavoritos;
 import com.ispc.gymapp.views.activities.LoginActivity;
+import com.ispc.gymapp.views.activities.SplashActivity;
 
 import java.text.DecimalFormat;
 
@@ -38,7 +44,7 @@ public class ProfileFragment extends Fragment {
     private String mParam2;
     private EditText pesoEditText;
     private EditText alturaEditText;
-    private TextView imcTextView,logout;
+    private TextView imcTextView,logout, deleteAccount;
     private User user;
     private FirebaseAuth mAuth;
 
@@ -76,15 +82,12 @@ public class ProfileFragment extends Fragment {
         alturaEditText.setEnabled(false);
         imcTextView = view.findViewById(R.id.textImc);
         logout = view.findViewById(R.id.textView21);
+        deleteAccount = view.findViewById(R.id.deleteAccount);
         mAuth = FirebaseAuth.getInstance();
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mAuth.signOut();
-                Intent intent = new Intent(getContext(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+
+        logoutOperation();
+        delete(user);
+
         Double userWeight = user.getWeight();
         Integer userHeight = user.getHeight();
         pesoEditText.setText(userWeight.toString());
@@ -101,6 +104,31 @@ public class ProfileFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void logoutOperation() {
+        logout.setOnClickListener(view -> {
+            mAuth.signOut();
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    private void delete(User user) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        deleteAccount.setOnClickListener(view1 -> db.collection("users").whereEqualTo("mail", user.getMail())
+                .get().addOnSuccessListener(task ->{
+                    for (DocumentSnapshot documentSnapshot : task.getDocuments()) {
+                        Toast toast = Toast.makeText(getContext(), "Cuenta eliminada", Toast.LENGTH_LONG);
+                        toast.show();
+                        db.collection("users")
+                                .document(documentSnapshot.getId()).delete()
+                                .addOnSuccessListener(unused -> {
+                                    Intent intent = new Intent(getContext(), SplashActivity.class);
+                                    startActivity(intent);
+                                });
+                    }
+                }));
     }
 
     private String imcCalculator(double weight, int height) {
