@@ -37,6 +37,10 @@ public class Plan {
         this.descripcion = descripcion;
     }
 
+    public String getPrecioString() {
+        return "$" + String.valueOf(precio);
+    }
+
     public double getPrecio() {
         return precio;
     }

@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ispc.gymapp.R;
+import com.ispc.gymapp.views.activities.Ecommerce;
 import com.ispc.gymapp.views.activities.Plan;
 import com.ispc.gymapp.views.activities.Carrito;
 
@@ -21,10 +22,14 @@ import java.util.List;
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
     private List<Plan> planes;
     private Context context;
+    private Ecommerce ecommerceActivity;
 
     public PlanAdapter(List<Plan> planes, Context context) {
         this.planes = planes;
         this.context = context;
+        if (context instanceof Ecommerce) {
+            this.ecommerceActivity = (Ecommerce) context;
+        }
     }
     @NonNull
     @Override
@@ -38,16 +43,27 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         Plan plan = planes.get(position);
         holder.nombre.setText(plan.getNombre());
         holder.descripcion.setText(plan.getDescripcion());
-        holder.precio.setText(String.valueOf(plan.getPrecio()));
+        holder.precio.setText(plan.getPrecioString());
         holder.imagenImageView.setImageResource(plan.getImagen());
 
-        holder.btnContratar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Carrito.getInstance().agregarPlan(plan);
-                Toast.makeText(context, "Plan agregado al carrito", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (Carrito.getInstance().getPlanes().contains(plan)) {
+            holder.btnContratar.setVisibility(View.GONE);
+        } else {
+            holder.btnContratar.setVisibility(View.VISIBLE);
+            holder.btnContratar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int clickedPosition = holder.getAdapterPosition();
+                    Carrito.getInstance().agregarPlan(plan);
+                    Toast.makeText(context, "Plan agregado al carrito", Toast.LENGTH_SHORT).show();
+                    notifyItemChanged(clickedPosition);
+                    if (ecommerceActivity != null) {
+                        ecommerceActivity.updateCartBadge();
+                    }
+                }
+            });
+        }
+
     }
 
     @Override

@@ -51,6 +51,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/cart_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/cartButton"
+                android:layout_alignEnd="@id/cartButton"
+                android:background="@drawable/badge_background"
+                android:gravity="center"
+                android:padding="2dp"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/cartButton"
+                app:layout_constraintEnd_toEndOf="@+id/cartButton"
+                app:layout_constraintTop_toTopOf="@+id/cartButton" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

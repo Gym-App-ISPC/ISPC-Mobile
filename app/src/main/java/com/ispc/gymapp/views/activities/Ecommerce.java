@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ispc.gymapp.R;
@@ -24,6 +25,7 @@ public class Ecommerce extends AppCompatActivity {
     private PlanAdapter adapter;
     private List<Plan> planList;
     private ImageButton cartButton;
+    private TextView cartBadge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class Ecommerce extends AppCompatActivity {
         setContentView(R.layout.activity_ecommerce2);
 
         cartButton = findViewById(R.id.cartButton);
+        cartBadge = findViewById(R.id.cart_badge);
         cartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,9 +90,17 @@ public class Ecommerce extends AppCompatActivity {
 
         });
 
-
-
+        updateCartBadge();
 
     }
 
+    public void updateCartBadge() {
+        int cartSize = Carrito.getInstance().getPlanes().size();
+        if (cartSize > 0) {
+            cartBadge.setText(String.valueOf(cartSize));
+            cartBadge.setVisibility(View.VISIBLE);
+        } else {
+            cartBadge.setVisibility(View.GONE);
+        }
+    }
 }

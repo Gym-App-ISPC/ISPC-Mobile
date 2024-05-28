@@ -64,8 +64,10 @@
     <Button
         android:id="@+id/btnCheckout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:text="@string/comprar"
+        android:background="@color/blue_bold"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
