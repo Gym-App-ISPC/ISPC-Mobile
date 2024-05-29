@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
     android:backgroundTintMode="add"
-    android:orientation="vertical"
     tools:context=".views.activities.MainActivity">
 
     <LinearLayout
@@ -16,7 +15,6 @@
         android:layout_alignParentTop="true"
         android:layout_margin="16dp"
         android:orientation="horizontal">
-
 
         <!-- ImageView para el icono de notificación -->
         <ImageView
@@ -36,9 +34,8 @@
             android:layout_marginEnd="10dp"
             android:scaleType="centerInside"
             android:src="@drawable/baseline_person_2_24"
-            android:contentDescription="@string/profile"/>
+            android:contentDescription="@string/profile" />
     </LinearLayout>
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_Navigation"
@@ -53,7 +50,6 @@
         app:itemTextColor="@drawable/selector"
         app:labelVisibilityMode="selected"
         app:menu="@menu/bottom_menu" />
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -122,7 +118,6 @@
                     android:layout_margin="10dp"
                     android:orientation="horizontal">
 
-
                     <ImageView
                         android:layout_width="240dp"
                         android:layout_height="140dp"
@@ -147,10 +142,8 @@
                         android:scaleType="fitXY"
                         android:src="@drawable/avanzado" />
 
-
                 </LinearLayout>
             </HorizontalScrollView>
-
 
             <TextView
                 android:id="@+id/textView2"
@@ -193,6 +186,7 @@
                 android:text="Crea tu plan de alimentación semanal"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:padding="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
@@ -231,12 +225,27 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView7"
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
+            <Button
+                android:id="@+id/btnOpenWebsite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="Visitar GymApp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.779"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shapeableImageView"
+                app:layout_constraintVertical_bias="0.0" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
 
-
 </RelativeLayout>
+
+
+
 
 
