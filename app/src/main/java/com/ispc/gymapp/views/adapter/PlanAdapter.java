@@ -12,25 +12,27 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ispc.gymapp.R;
-import com.ispc.gymapp.views.activities.Ecommerce;
-import com.ispc.gymapp.views.activities.Plan;
-import com.ispc.gymapp.views.activities.Carrito;
+import com.google.firebase.firestore.DocumentSnapshot;
 
+import com.ispc.gymapp.R;
+import com.ispc.gymapp.model.Plan;
+import com.ispc.gymapp.views.activities.Ecommerce;
+import com.ispc.gymapp.views.activities.Carrito;
+import com.squareup.picasso.Picasso;
+
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
-    private List<Plan> planes;
     private Context context;
-    private Ecommerce ecommerceActivity;
+    private ArrayList<Plan> plans;
 
-    public PlanAdapter(List<Plan> planes, Context context) {
-        this.planes = planes;
+    public PlanAdapter(Context context, ArrayList<Plan> plans) {
         this.context = context;
-        if (context instanceof Ecommerce) {
-            this.ecommerceActivity = (Ecommerce) context;
-        }
+        this.plans = plans;
     }
+
     @NonNull
     @Override
     public PlanViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,50 +42,42 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 
     @Override
     public void onBindViewHolder(PlanViewHolder holder, int position) {
-        Plan plan = planes.get(position);
-        holder.nombre.setText(plan.getNombre());
-        holder.descripcion.setText(plan.getDescripcion());
-        holder.precio.setText(plan.getPrecioString());
-        holder.imagenImageView.setImageResource(plan.getImagen());
+        Plan plan = plans.get(position);
+        holder.nombreTextView.setText(plan.getNombre());
+        holder.descripcionTextView.setText(plan.getDescripcion());
+        holder.precioTextView.setText(String.valueOf(plan.getPrecio()));
+        Picasso.get().load(plan.getImagen()).into(holder.imagenImageView);
 
-        if (Carrito.getInstance().getPlanes().contains(plan)) {
-            holder.btnContratar.setVisibility(View.GONE);
-        } else {
-            holder.btnContratar.setVisibility(View.VISIBLE);
-            holder.btnContratar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int clickedPosition = holder.getAdapterPosition();
-                    Carrito.getInstance().agregarPlan(plan);
-                    Toast.makeText(context, "Plan agregado al carrito", Toast.LENGTH_SHORT).show();
-                    notifyItemChanged(clickedPosition);
-                    if (ecommerceActivity != null) {
-                        ecommerceActivity.updateCartBadge();
-                    }
-                }
-            });
-        }
+
+        holder.btnContratar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Carrito.getInstance().agregarPlan(plan);
+                Toast.makeText(context, "Plan agregado al carrito", Toast.LENGTH_SHORT).show();
+                notifyDataSetChanged();
+
+            }
+        });
 
     }
 
     @Override
     public int getItemCount() {
-        return planes.size();
+        return plans.size();
     }
 
     public static class PlanViewHolder extends RecyclerView.ViewHolder {
-        public TextView nombre, descripcion, precio;
+        public TextView nombreTextView, descripcionTextView, precioTextView;
         public Button btnContratar;
         public ImageView imagenImageView;
 
-        public PlanViewHolder(View itemView) {
+        public PlanViewHolder(@NonNull View itemView) {
             super(itemView);
-            nombre = itemView.findViewById(R.id.plan_nombre);
-            descripcion = itemView.findViewById(R.id.plan_descripcion);
-            precio = itemView.findViewById(R.id.plan_precio);
+            nombreTextView = itemView.findViewById(R.id.plan_nombre);
+            descripcionTextView = itemView.findViewById(R.id.plan_descripcion);
+            precioTextView = itemView.findViewById(R.id.plan_precio);
             btnContratar = itemView.findViewById(R.id.btn_contratar);
             imagenImageView = itemView.findViewById(R.id.plan_img);
-
         }
     }
 }

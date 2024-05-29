@@ -118,6 +118,8 @@
     <string name="DescriptionPA">Tonifica, desarrolla músculo y hazte más fuerte donde más te importa</string>
     <string name="carrito">Mi Carrito</string>
     <string name="comprar">Ir a pagar</string>
+    <string name="vaciar_carrito">Vaciar carrito</string>
+    <string name="cambiar_plan">Cambiar plan</string>
 
     <!-- Exercise/Routine -->
     <string name="exercise_title_item">Exercise title</string>

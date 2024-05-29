@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ispc.gymapp.R;
+import com.ispc.gymapp.model.Plan;
 import com.ispc.gymapp.views.adapter.CarritoAdapter;
 
 

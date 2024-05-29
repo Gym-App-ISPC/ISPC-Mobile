@@ -1,5 +1,7 @@
 package com.ispc.gymapp.views.activities;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,32 +10,43 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.ispc.gymapp.R;
+import com.ispc.gymapp.model.Plan;
 import com.ispc.gymapp.views.adapter.PlanAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Ecommerce extends AppCompatActivity {
-    private RecyclerView recyclerView;
-    private PlanAdapter adapter;
-    private List<Plan> planList;
+    PlanAdapter planAdapter;
+    ArrayList<Plan> plans;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     private ImageButton cartButton;
-    private TextView cartBadge;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ecommerce2);
+        setUpRecyclerView();
 
         cartButton = findViewById(R.id.cartButton);
-        cartBadge = findViewById(R.id.cart_badge);
+
+        obtenerPlanes();
         cartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,16 +55,6 @@ public class Ecommerce extends AppCompatActivity {
             }
         });
 
-        recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        planList = new ArrayList<>();
-        planList.add(new Plan("Plan Básico", getString(R.string.DescriptionPB), 8000, R.drawable.ecommerceplanprincipiantes));
-        planList.add(new Plan("Plan Estándar", getString(R.string.DescriptionPM), 12000, R.drawable.ecommerceplanmedio));
-        planList.add(new Plan("Plan Premium", getString(R.string.DescriptionPA), 15000, R.drawable.ecommerceplanavanzado));
-
-        adapter = new PlanAdapter(planList, this);
-        recyclerView.setAdapter(adapter);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_Navigator);
         bottomNavigationView.setSelectedItemId(R.id.shopItem);
@@ -90,17 +93,33 @@ public class Ecommerce extends AppCompatActivity {
 
         });
 
-        updateCartBadge();
+
 
     }
-
-    public void updateCartBadge() {
-        int cartSize = Carrito.getInstance().getPlanes().size();
-        if (cartSize > 0) {
-            cartBadge.setText(String.valueOf(cartSize));
-            cartBadge.setVisibility(View.VISIBLE);
-        } else {
-            cartBadge.setVisibility(View.GONE);
-        }
+    private void obtenerPlanes() {
+        db.collection("planes")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Plan plan = document.toObject(Plan.class);
+                            plans.add(plan); //
+                        }
+                        planAdapter.notifyDataSetChanged();
+                    } else {
+                        Log.d(TAG, "Error obteniendo los planes: ", task.getException());
+                    }
+                });
     }
+
+
+    private void setUpRecyclerView() {
+        plans = new ArrayList<>();
+        planAdapter = new PlanAdapter(this, plans);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setAdapter(planAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+
 }

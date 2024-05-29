@@ -1,5 +1,7 @@
 package com.ispc.gymapp.views.activities;
 
+import com.ispc.gymapp.model.Plan;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,17 +19,20 @@ public class Carrito {
         }
         return instance;
     }
-
-    public void agregarPlan(Plan plan) {
-        planes.add(plan);
-    }
-
-    public void eliminarPlan(Plan plan) {
-        planes.remove(plan);
-    }
-
     public List<Plan> getPlanes() {
         return planes;
     }
+    public void agregarPlan(Plan plan) {
+        // Clear the list before adding the new plan
+        planes.clear();
+        planes.add(plan);
+    }
+
+    public void removerPlan(Plan plan) {
+
+        planes.remove(plan);
+    }
+
+
 }
 

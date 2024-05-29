@@ -10,16 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ispc.gymapp.R;
-import com.ispc.gymapp.views.activities.Plan;
+import com.ispc.gymapp.model.Plan;
 
 import java.util.List;
 
 public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.CarritoViewHolder> {
 
-    private List<Plan> planes;
+    private List<Plan> plans;
 
     public CarritoAdapter(List<Plan> planes) {
-        this.planes = planes;
+        this.plans = planes;
     }
 
     @NonNull
@@ -31,11 +31,11 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.CarritoV
 
     @Override
     public void onBindViewHolder(@NonNull CarritoViewHolder holder, int position) {
-        Plan plan = planes.get(position);
+        Plan plan = plans.get(position);
         holder.nombre.setText(plan.getNombre());
         holder.descripcion.setText(plan.getDescripcion());
         holder.precio.setText(String.valueOf(plan.getPrecio()));
-        holder.imagenImageView.setImageResource(plan.getImagen());
+
 
         View btnContratar = holder.itemView.findViewById(R.id.btn_contratar);
         if (btnContratar != null) {
@@ -45,7 +45,7 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.CarritoV
 
     @Override
     public int getItemCount() {
-        return planes.size();
+        return plans.size();
     }
 
     public static class CarritoViewHolder extends RecyclerView.ViewHolder {
