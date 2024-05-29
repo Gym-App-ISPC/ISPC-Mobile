@@ -3,6 +3,7 @@ package com.ispc.gymapp.views.activities;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,14 +31,14 @@ import com.ispc.gymapp.views.adapter.PlanAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ecommerce extends AppCompatActivity {
+public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanClickListener{
     PlanAdapter planAdapter;
     ArrayList<Plan> plans;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private ImageButton cartButton;
 
-
+    private TextView cartBadge;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +46,11 @@ public class Ecommerce extends AppCompatActivity {
         setUpRecyclerView();
 
         cartButton = findViewById(R.id.cartButton);
+        cartBadge = findViewById(R.id.cart_badge);
+
 
         obtenerPlanes();
+
         cartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +100,23 @@ public class Ecommerce extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onPlanClick(Plan plan) {
+        actualizarBadge();
+        mostrarDialogo(plan);
+    }
+    private void mostrarDialogo(Plan plan) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Plan agregado");
+        builder.setMessage("Haz agregado: " + plan.getNombre() + " al carrito.");
+        builder.setPositiveButton("Ver carrito", (dialog, which) -> {
+            Intent intent = new Intent(Ecommerce.this, CarritoActivity.class);
+            startActivity(intent);
+        });
+        builder.setNegativeButton("Cerrar", (dialog, which) -> dialog.dismiss());
+        builder.show();
+    }
     private void obtenerPlanes() {
         db.collection("planes")
                 .get()
@@ -105,17 +126,27 @@ public class Ecommerce extends AppCompatActivity {
                             Plan plan = document.toObject(Plan.class);
                             plans.add(plan); //
                         }
+
                         planAdapter.notifyDataSetChanged();
                     } else {
                         Log.d(TAG, "Error obteniendo los planes: ", task.getException());
                     }
                 });
-    }
 
+    }
+    private void actualizarBadge() {
+        int planCount = Carrito.getInstance().getPlanes().size();
+        if (planCount > 0) {
+            cartBadge.setVisibility(View.VISIBLE);
+            cartBadge.setText(String.valueOf(planCount));
+        } else {
+            cartBadge.setVisibility(View.GONE);
+        }
+    }
 
     private void setUpRecyclerView() {
         plans = new ArrayList<>();
-        planAdapter = new PlanAdapter(this, plans);
+        planAdapter = new PlanAdapter(this, plans, this);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setAdapter(planAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

@@ -27,10 +27,15 @@ import java.util.List;
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
     private Context context;
     private ArrayList<Plan> plans;
+    private OnPlanClickListener listener;
 
-    public PlanAdapter(Context context, ArrayList<Plan> plans) {
+    public interface OnPlanClickListener {
+        void onPlanClick(Plan plan);
+    }
+    public PlanAdapter(Context context, ArrayList<Plan> plans, OnPlanClickListener listener) {
         this.context = context;
         this.plans = plans;
+        this.listener = listener;
     }
 
     @NonNull
@@ -49,13 +54,12 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         Picasso.get().load(plan.getImagen()).into(holder.imagenImageView);
 
 
-        holder.btnContratar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Carrito.getInstance().agregarPlan(plan);
-                Toast.makeText(context, "Plan agregado al carrito", Toast.LENGTH_SHORT).show();
-                notifyDataSetChanged();
-
+        holder.btnContratar.setOnClickListener(v -> {
+            Carrito.getInstance().agregarPlan(plan);
+            Toast.makeText(context, "Plan agregado al carrito", Toast.LENGTH_SHORT).show();
+            notifyDataSetChanged();
+            if (listener != null) {
+                listener.onPlanClick(plan);
             }
         });
 

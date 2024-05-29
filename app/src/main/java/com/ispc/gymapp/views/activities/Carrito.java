@@ -13,7 +13,7 @@ public class Carrito {
         planes = new ArrayList<>();
     }
 
-    public static synchronized Carrito getInstance() {
+    public static Carrito getInstance() {
         if (instance == null) {
             instance = new Carrito();
         }
@@ -23,14 +23,12 @@ public class Carrito {
         return planes;
     }
     public void agregarPlan(Plan plan) {
-        // Clear the list before adding the new plan
         planes.clear();
         planes.add(plan);
     }
 
-    public void removerPlan(Plan plan) {
-
-        planes.remove(plan);
+    public void limpiarCarrito() {
+        planes.clear();
     }
 
 
