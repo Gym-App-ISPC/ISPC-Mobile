@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ispc.gymapp.R;
 import com.ispc.gymapp.model.Plan;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.CarritoV
         holder.nombre.setText(plan.getNombre());
         holder.descripcion.setText(plan.getDescripcion());
         holder.precio.setText(String.valueOf(plan.getPrecio()));
+        Picasso.get().load(plan.getImagen()).into(holder.imagenImageView);
 
 
         View btnContratar = holder.itemView.findViewById(R.id.btn_contratar);

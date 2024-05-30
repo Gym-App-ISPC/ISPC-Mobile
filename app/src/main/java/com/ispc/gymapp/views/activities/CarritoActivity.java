@@ -30,6 +30,8 @@ public class CarritoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrito);
 
+        Carrito.getInstance().cargarCarritoDesdeFirestore(this::setUpRecyclerView);
+
         btnBack = findViewById(R.id.btnBack);
 
         btnBack.setOnClickListener(v -> {
@@ -51,4 +53,27 @@ public class CarritoActivity extends AppCompatActivity {
             Toast.makeText(CarritoActivity.this, "Proceso de checkout iniciado", Toast.LENGTH_SHORT).show();
         });
     }
+
+    private void setUpRecyclerView() {
+        List<Plan> plans = Carrito.getInstance().getPlanes();
+        if (recyclerViewCarrito != null) {
+            if (carritoAdapter == null) {
+                carritoAdapter = new CarritoAdapter(plans);
+                recyclerViewCarrito.setAdapter(carritoAdapter);
+            } else {
+                carritoAdapter.notifyDataSetChanged();
+            }
+        } else {
+
+        }
+    }
+
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Carrito.getInstance().guardarCarritoEnFirestore();
+    }
+
 }

@@ -14,36 +14,60 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.ispc.gymapp.R;
 import com.ispc.gymapp.model.Plan;
+import com.ispc.gymapp.presenters.login.LoginPresenter;
 import com.ispc.gymapp.views.adapter.PlanAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanClickListener{
+public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanClickListener, LoginPresenter.RolUsuarioCallback{
     PlanAdapter planAdapter;
     ArrayList<Plan> plans;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    LoginPresenter loginPresenter;
 
     private ImageButton cartButton;
 
     private TextView cartBadge;
+    private Button addButton;
+    private Button editButton;
+    private Button deleteButton;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ecommerce2);
+
+        loginPresenter = new LoginPresenter(this, FirebaseAuth.getInstance(), FirebaseFirestore.getInstance());
+
+        loginPresenter.obtenerRolUsuario(this);
+
+        addButton = findViewById(R.id.addButton);
+        editButton = findViewById(R.id.editButton);
+        deleteButton = findViewById(R.id.deleteButton);
+
+
+
+
+        Carrito.getInstance().cargarCarritoDesdeFirestore(this::setUpRecyclerView);
         setUpRecyclerView();
+
 
         cartButton = findViewById(R.id.cartButton);
         cartBadge = findViewById(R.id.cart_badge);
@@ -102,10 +126,30 @@ public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanCl
     }
 
     @Override
+    public void onRolUsuarioObtenido(String roleName) {
+        if (roleName.equals("ADMIN")) {
+            addButton.setVisibility(View.VISIBLE);
+            editButton.setVisibility(View.VISIBLE);
+            deleteButton.setVisibility(View.VISIBLE);
+        } else {
+            addButton.setVisibility(View.GONE);
+            editButton.setVisibility(View.GONE);
+            deleteButton.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onFalloObtenerRolUsuario(Exception e) {
+
+        Log.e(TAG, "Error al obtener el rol del usuario: ", e);
+    }
+
+    @Override
     public void onPlanClick(Plan plan) {
         actualizarBadge();
         mostrarDialogo(plan);
     }
+
     private void mostrarDialogo(Plan plan) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Plan agregado");
@@ -151,6 +195,8 @@ public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanCl
         recyclerView.setAdapter(planAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
+
 
 
 }
