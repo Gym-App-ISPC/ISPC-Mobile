@@ -207,17 +207,15 @@
                 app:srcCompat="@drawable/dieta"
                 app:strokeColor="@null" />
 
-            <TextView
-                android:id="@+id/textView6"
+            <Button
+                android:id="@+id/btnAcquirePlan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="35dp"
                 android:layout_marginBottom="92dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:clickable="true"
                 android:onClick="textoClickeable"
-                android:text="Adquiri tu plan aqui"
+                android:text="Adquiri tu plan"
                 android:textColor="#F9A826"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/textView3"
@@ -229,23 +227,14 @@
                 android:id="@+id/btnOpenWebsite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="396dp"
                 android:text="Visitar GymApp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.779"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/shapeableImageView"
-                app:layout_constraintVertical_bias="0.0" />
-
+                app:layout_constraintHorizontal_bias="0.906"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 </RelativeLayout>
-
-
-
-
-
