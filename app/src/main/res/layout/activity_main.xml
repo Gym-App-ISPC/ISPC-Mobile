@@ -8,25 +8,19 @@
     android:backgroundTintMode="add"
     tools:context=".views.activities.MainActivity">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/logoTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="GymApp"
+        android:textColor="#DC3545"
+        android:textSize="24sp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_margin="16dp"
-        android:orientation="horizontal">
+        android:textStyle="bold"/>
 
-        <!-- ImageView para la foto de perfil -->
-        <ImageView
-            android:id="@+id/profileImage"
-            android:layout_width="40dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/baseline_person_2_24"
-            android:contentDescription="@string/profile" />
-    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_Navigation"
@@ -95,7 +89,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="60dp"
                 android:layout_weight="1"
-                android:textColor="#F9A826"
+                android:textColor="#DC3545"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/imageView7"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -154,7 +148,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="404dp"
+                android:layout_marginTop="396dp"
                 android:background="@color/buttonColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -218,7 +212,7 @@
                 android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.314"
+                app:layout_constraintHorizontal_bias="0.285"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView9"
                 app:layout_constraintVertical_bias="0.0"
