@@ -124,7 +124,8 @@ public class ProfileFragment extends Fragment {
                         db.collection("users")
                                 .document(documentSnapshot.getId()).delete()
                                 .addOnSuccessListener(unused -> {
-                                    Intent intent = new Intent(getContext(), SplashActivity.class);
+                                    mAuth.signOut();
+                                    Intent intent = new Intent(getContext(), LoginActivity.class);
                                     startActivity(intent);
                                 });
                     }
