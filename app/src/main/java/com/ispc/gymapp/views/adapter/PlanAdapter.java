@@ -1,6 +1,7 @@
 package com.ispc.gymapp.views.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -27,7 +29,19 @@ import java.util.List;
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
     private Context context;
     private ArrayList<Plan> plans;
+    private int selectedItem = RecyclerView.NO_POSITION;
     private OnPlanClickListener listener;
+
+
+    public int getSelectedPosition() {
+        return selectedItem;
+    }
+    public void setSelectedItem(int position) {
+        int previousItem = selectedItem;
+        selectedItem = position;
+        notifyItemChanged(previousItem);
+        notifyItemChanged(selectedItem);
+    }
 
     public interface OnPlanClickListener {
         void onPlanClick(Plan plan);
@@ -42,7 +56,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     @Override
     public PlanViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_plan, parent, false);
-        return new PlanViewHolder(view);
+        return new PlanViewHolder(view, this);
     }
 
     @Override
@@ -63,6 +77,10 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
             }
         });
 
+        int selectedColor = ContextCompat.getColor(context, R.color.secondary);
+        int defaultColor = ContextCompat.getColor(context, R.color.backgroundColor);
+        holder.itemView.setBackgroundColor(position == selectedItem ? selectedColor : defaultColor);
+
     }
 
     @Override
@@ -70,18 +88,32 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         return plans.size();
     }
 
-    public static class PlanViewHolder extends RecyclerView.ViewHolder {
+
+    public  class PlanViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private PlanAdapter adapter;
         public TextView nombreTextView, descripcionTextView, precioTextView;
         public Button btnContratar;
         public ImageView imagenImageView;
 
-        public PlanViewHolder(@NonNull View itemView) {
+        public PlanViewHolder(@NonNull View itemView, PlanAdapter adapter) {
             super(itemView);
+            this.adapter = adapter;
             nombreTextView = itemView.findViewById(R.id.plan_nombre);
             descripcionTextView = itemView.findViewById(R.id.plan_descripcion);
             precioTextView = itemView.findViewById(R.id.plan_precio);
             btnContratar = itemView.findViewById(R.id.btn_contratar);
             imagenImageView = itemView.findViewById(R.id.plan_img);
+
+            itemView.setOnClickListener(this);
+        }
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                setSelectedItem(position);
+            }
         }
     }
+
+
 }
