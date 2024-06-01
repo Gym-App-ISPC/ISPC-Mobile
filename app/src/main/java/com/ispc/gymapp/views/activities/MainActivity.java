@@ -92,14 +92,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.home);
 
 
-        ImageView profileImage = findViewById(R.id.profileImage);
-        profileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MiPerfilActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
 
