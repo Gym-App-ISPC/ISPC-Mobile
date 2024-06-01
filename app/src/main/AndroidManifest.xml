@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GymApp"
+
         tools:targetApi="31">
+
         <activity
             android:name=".views.activities.RoutineDescription"
             android:exported="false" />
@@ -72,5 +74,6 @@
 
     </application>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.SENDTO"/>
 
 </manifest>

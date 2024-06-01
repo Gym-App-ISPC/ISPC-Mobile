@@ -32,8 +32,6 @@
     <string name="alt_logo">Logo</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="next_fragment">SIGUIENTE</string>
     <string name="prev_fragment">ATRAS</string>
     <string name="loading_text" tools:ignore="Typos">Espere un momento…</string>
@@ -64,7 +62,7 @@
     <string name="addExercise">Agregar Ejercicio</string>
     <!--Mi perfil-->
     <string name="MisDatosTXT">Perfil</string>
-    <string name="MiRendimientoTXT">Mi Rendimiento</string>
+    <string name="MiSoport">Soporte</string>
     <string name="MisFavoritosTXT">Mis favoritos</string>
     <string name="MisRutinasTXT">Mis Rutinas</string>
     <string name="uidDato">UID</string>
@@ -107,7 +105,7 @@
     <string name="mis_rutinas">Mis rutinas</string>
 
     <string name="TitleEcommerce">Elige el plan que se adapte a vos</string>
-    <string name="TitlePbasic">Begginer Plan</string>
+    <string name="TitlePbasic">Beginner Plan</string>
     <string name="TitlePlanM">Toned Body Plan</string>
     <string name="TitlePlanA">Shape y Build Plan</string>
     <string name="Price">$8000</string>
@@ -138,5 +136,6 @@
     <string name="deletePlan">Eliminar Plan</string>
     <string name="btnGuardar">Guardar</string>
     <string name="btnCancelar">Cancelar</string>
+    <string name="ponte_en_contacto_con_nosotros">Ponte en contacto con Nosotros</string>
 
 </resources>
