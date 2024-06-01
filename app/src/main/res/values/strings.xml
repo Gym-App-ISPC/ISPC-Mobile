@@ -110,12 +110,17 @@
     <string name="TitlePbasic">Begginer Plan</string>
     <string name="TitlePlanM">Toned Body Plan</string>
     <string name="TitlePlanA">Shape y Build Plan</string>
-    <string name="Price">$5000</string>
-    <string name="PriceM">$7000</string>
-    <string name="PriceA">$10000</string>
+    <string name="Price">$8000</string>
+    <string name="PriceM">$12000</string>
+    <string name="PriceA">$17000</string>
     <string name="DescriptionPB">Una forma estupenda de empezar tu viaje hacia una vida más sana y flexible</string>
     <string name="DescriptionPM">Pierde peso rápidamente. Tonifica, esculpe y mejora tu forma física</string>
     <string name="DescriptionPA">Tonifica, desarrolla músculo y hazte más fuerte donde más te importa</string>
+    <string name="carrito">Mi Carrito</string>
+    <string name="comprar">Ir a pagar</string>
+    <string name="vaciar_carrito">Vaciar carrito</string>
+    <string name="cambiar_plan">Cambiar plan</string>
+
     <!-- Exercise/Routine -->
     <string name="exercise_title_item">Exercise title</string>
     <string name="favoritebtn">favorite</string>
@@ -124,5 +129,14 @@
     <!--Favoritos-->
     <string name="titleFav">Mis favoritos</string>
 
+    <!--header-->
+    <string name="cart_button_description">Carrito</string>
+
+    <!--CRUD ADMIN-->
+    <string name="addPlan">Agregar un nuevo plan</string>
+    <string name="editPlan">Editar Plan</string>
+    <string name="deletePlan">Eliminar Plan</string>
+    <string name="btnGuardar">Guardar</string>
+    <string name="btnCancelar">Cancelar</string>
 
 </resources>

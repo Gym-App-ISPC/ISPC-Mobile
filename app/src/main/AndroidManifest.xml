@@ -66,6 +66,11 @@
         <activity
             android:name=".views.activities.ActivityFavoritos"
             android:exported="false" />
+        <activity
+            android:name=".views.activities.CarritoActivity"
+            android:exported="true" />
+
     </application>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
 </manifest>

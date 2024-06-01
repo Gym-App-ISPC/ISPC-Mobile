@@ -39,22 +39,24 @@ public class ProfileFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private static final String ARG_USER = "user";
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private User user;
     private EditText pesoEditText;
     private EditText alturaEditText;
     private TextView imcTextView,logout, deleteAccount;
-    private User user;
-    private FirebaseAuth mAuth;
 
-    public ProfileFragment(User user) {
-        this.user = user;
+    private FirebaseAuth mAuth;
+    public ProfileFragment() {
     }
 
 
+
     public static ProfileFragment newInstance(String param1, String param2,User user) {
-        ProfileFragment fragment = new ProfileFragment(user);
+        ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -68,6 +70,7 @@ public class ProfileFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            user = (User) getArguments().getSerializable(ARG_USER);
         }
     }
 
@@ -88,12 +91,14 @@ public class ProfileFragment extends Fragment {
         logoutOperation();
         delete(user);
 
-        Double userWeight = user.getWeight();
-        Integer userHeight = user.getHeight();
-        pesoEditText.setText(userWeight.toString());
-        alturaEditText.setText(userHeight.toString());
-        String IMC =  imcCalculator(userWeight,userHeight);
-        imcTextView.setText(IMC);
+        if (user != null) {
+            Double userWeight = user.getWeight();
+            Integer userHeight = user.getHeight();
+            pesoEditText.setText(userWeight.toString());
+            alturaEditText.setText(userHeight.toString());
+            String IMC = imcCalculator(userWeight, userHeight);
+            imcTextView.setText(IMC);
+        }
 
         AppCompatImageView favoritos = view.findViewById(R.id.favoritos);
         favoritos.setOnClickListener(new View.OnClickListener() {
