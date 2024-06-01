@@ -21,10 +21,11 @@
 
         <ImageView
             android:id="@+id/plan_img"
-            android:background="@drawable/ecommerceplanprincipiantes"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="328dp"
+            android:layout_height="237dp"
             android:layout_weight="1"
+            android:layout_gravity="center"
+            android:background="@drawable/ecommerceplanprincipiantes"
             android:scaleType="centerCrop" />
 
         <TextView
