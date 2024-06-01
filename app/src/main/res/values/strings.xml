@@ -132,4 +132,11 @@
     <!--header-->
     <string name="cart_button_description">Carrito</string>
 
+    <!--CRUD ADMIN-->
+    <string name="addPlan">Agregar un nuevo plan</string>
+    <string name="editPlan">Editar Plan</string>
+    <string name="deletePlan">Eliminar Plan</string>
+    <string name="btnGuardar">Guardar</string>
+    <string name="btnCancelar">Cancelar</string>
+
 </resources>
