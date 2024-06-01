@@ -222,6 +222,19 @@
             app:layout_constraintBottom_toTopOf="@+id/switch1"
             app:layout_constraintTop_toBottomOf="@+id/altura" />
 
+        <TextView
+            android:id="@+id/deleteAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Borrar Cuenta"
+            android:textColor="@android:color/holo_red_light"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textView21"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/switch1"
+            app:layout_constraintVertical_bias="0.834" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
