@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".views.activities.PlanDetailsActivity">
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¡Felicitaciones!"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:drawableStart="@drawable/ic_check"
+        android:drawablePadding="8dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"/>
+
+
+    <TextView
+        android:id="@+id/titleTextViewdesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Has contratado:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_below="@id/titleTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"/>
+
+    <TextView
+        android:id="@+id/planNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Plan Name"
+        android:textSize="24sp"
+        android:layout_below="@id/titleTextViewdesc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/planDescriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Plan Description"
+        android:layout_below="@id/planNameTextView"
+        android:layout_marginTop="8dp"/>
+
+    <Button
+        android:id="@+id/startPlanButton"
+        android:layout_width="381dp"
+        android:layout_height="67dp"
+        android:layout_below="@id/planDescriptionTextView"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="384dp"
+        android:layout_marginBottom="51dp"
+        android:background="@color/blue_bold"
+        android:text="Comenzar a usar mi plan"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
