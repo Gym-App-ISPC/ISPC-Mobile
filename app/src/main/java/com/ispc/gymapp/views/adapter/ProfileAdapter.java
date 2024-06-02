@@ -24,7 +24,8 @@ public class ProfileAdapter extends FragmentStateAdapter {
         if (position == 1) {
             return new PerformanceFragment();
         }
-        return ProfileFragment.newInstance("param1", "param2", this.user);
+        return ProfileFragment.newInstance(this.user);
+
     }
 
     @Override

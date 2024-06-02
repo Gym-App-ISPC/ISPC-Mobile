@@ -116,7 +116,7 @@ public class MiPerfilActivity extends AppCompatActivity {
             if (position == 0) {
                 tab.setText("Mi Perfil");
             } else if (position == 1) {
-                tab.setText("Mi Rendimiento");
+                tab.setText("Soporte");
             }
         }).attach();
 

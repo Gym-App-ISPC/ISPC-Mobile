@@ -33,7 +33,7 @@
                 android:layout_height="45dp"
                 android:onClick="goToRoutine"
                 android:padding="5dp"
-                android:src="@drawable/calendar_check" />
+                android:src="@drawable/exercises_iconred" />
 
             <TextView
                 android:id="@+id/textView14"
@@ -68,7 +68,7 @@
                 android:layout_width="60dp"
                 android:layout_height="46dp"
                 android:padding="5dp"
-                android:src="@drawable/heart_fill" />
+                android:src="@drawable/heartred" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -92,7 +92,7 @@
             android:text="@string/IMCTXT"
             android:textColor="#CECBCE"
             android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/switch1"
+            app:layout_constraintBottom_toTopOf="@+id/btnActualizar"
             app:layout_constraintEnd_toEndOf="@+id/textImc"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -125,7 +125,8 @@
             android:layout_marginTop="28dp"
             android:drawableStart="@drawable/altura2"
             android:drawablePadding="8dp"
-            android:hint="Altura (m)"
+            android:hint="Altura (cm)"
+            android:text="cm"
             android:imeOptions="flagNoExtractUi"
             android:importantForAutofill="no"
 
@@ -145,7 +146,7 @@
             android:layout_marginBottom="24dp"
 
             android:text="@string/cerrarSesion"
-            android:textColor="#F3B43A"
+            android:textColor="#DC3545"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -195,18 +196,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/perfil" />
 
-        <Switch
-            android:id="@+id/switch1"
+        <Button
+            android:id="@+id/btnActualizar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-
             android:text="Actualizar datos"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
+            android:background="#DC3545"
+            app:layout_constraintTop_toBottomOf="@+id/textView18"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView18" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"/>
+
 
         <TextView
             android:id="@+id/textImc"
@@ -214,12 +214,12 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="20dp"
             android:layout_marginHorizontal="30dp"
-            android:text="asdasd"
+            android:text="imc"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView18"
-            app:layout_constraintBottom_toTopOf="@+id/switch1"
+            app:layout_constraintBottom_toTopOf="@+id/btnActualizar"
             app:layout_constraintTop_toBottomOf="@+id/altura" />
 
         <TextView
@@ -232,7 +232,7 @@
             app:layout_constraintBottom_toTopOf="@+id/textView21"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/switch1"
+            app:layout_constraintTop_toBottomOf="@+id/btnActualizar"
             app:layout_constraintVertical_bias="0.834" />
 
 
