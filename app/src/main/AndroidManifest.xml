@@ -69,6 +69,8 @@
         <activity
             android:name=".views.activities.CarritoActivity"
             android:exported="true" />
+        <activity android:name=".views.activities.PlanDetailsActivity" />
+
 
     </application>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
