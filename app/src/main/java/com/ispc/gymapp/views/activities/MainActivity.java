@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private LoginPresenter loginPresenter;
     private User user;
 
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -76,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
         textView = findViewById(R.id.mainTextTitle);
 
 
-       // Agrega un OnClickListener al botón para abrir la URL
+
+        // Agrega un OnClickListener al botón para abrir la URL
         findViewById(R.id.btnOpenWebsite).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_mancuernas_splash_foreground"
         android:supportsRtl="true"
         android:theme="@style/Theme.GymApp"
+
         tools:targetApi="31">
+
         <activity
             android:name=".views.activities.RoutineDescription"
             android:exported="false" />
@@ -69,8 +71,11 @@
         <activity
             android:name=".views.activities.CarritoActivity"
             android:exported="true" />
+        <activity android:name=".views.activities.PlanDetailsActivity" />
+
 
     </application>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.SENDTO"/>
 
 </manifest>

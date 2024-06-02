@@ -22,6 +22,7 @@
             android:orientation="horizontal"
             android:padding="8dp">
 
+
             <ImageButton
                 android:id="@+id/btnBack"
                 android:layout_width="wrap_content"
@@ -31,33 +32,34 @@
                 android:padding="12dp"
                 android:src="@drawable/bsckarrow"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textViewTitle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textViewTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="289dp"
+                android:layout_height="28dp"
                 android:background="@android:color/transparent"
-                android:gravity="center_horizontal"
+                android:gravity="center"
                 android:hint="@string/carrito"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tash"
                 app:layout_constraintStart_toEndOf="@+id/btnBack"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
             <ImageButton
-                android:id="@+id/btnfBack"
+                android:id="@+id/tash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/cart_button_description"
                 android:padding="12dp"
-                android:src="@drawable/bsckarrow"
+                android:src="@drawable/tash"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/textViewTitle" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

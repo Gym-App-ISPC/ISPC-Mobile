@@ -6,11 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.activities.DietExerciseActivity">
+
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_Navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:background="@color/backgroundColor"
         app:itemIconTint="@drawable/selector"
@@ -21,24 +22,20 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
->
-
+        android:layout_above="@id/bottom_Navigation">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp">
+            android:id="@+id/constraintLayoutdiet"
+            android:layout_margin="10dp">
 
 
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="30dp"
                 android:text="Plan de ejercicios diarios"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -47,47 +44,54 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="392dp"
+                android:layout_height="249dp"
                 android:layout_marginBottom="37dp"
+                android:clickable="true"
                 android:paddingVertical="22dp"
                 app:cardBackgroundColor="@color/backgroundColor"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="16dp"
-                android:clickable="true"
                 app:layout_constraintBottom_toTopOf="@+id/view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView8">
 
-
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent">
 
                     <ImageView
                         android:id="@+id/imageView9"
-                        android:layout_width="178dp"
-                        android:layout_height="105dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="12dp"
                         android:background="@color/backgroundColor"
                         android:scaleType="fitXY"
-                        app:srcCompat="@drawable/avanzado" />
+                        app:srcCompat="@drawable/planes" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#70000000" /> <!-- Color semi-transparente, ajusta el valor alpha según necesites -->
 
                     <TextView
                         android:id="@+id/textView7"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="320dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
                         android:gravity="center"
                         android:text="Selecciona el que más te guste y agregalo a tu rutina"
-                        android:textSize="16sp"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
-                </LinearLayout>
-
+                </RelativeLayout>
             </androidx.cardview.widget.CardView>
+
 
             <View
                 android:id="@+id/view"
@@ -117,28 +121,23 @@
                 app:layout_constraintTop_toBottomOf="@+id/view" />
 
             <LinearLayout
+                android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                tools:layout_editor_absoluteY="259dp"
                 android:layout_marginVertical="20dp"
+                android:gravity="center"
+                android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/textView4">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardViewBreakfast"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="150dp"
                     android:layout_marginBottom="20dp"
                     android:paddingVertical="22dp"
                     app:cardBackgroundColor="@color/backgroundColor"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/view"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView8">
-
+                    app:cardCornerRadius="4dp"
+                    app:cardElevation="8dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -148,7 +147,7 @@
                         <ImageView
                             android:id="@+id/imageView91"
                             android:layout_width="228dp"
-                            android:layout_height="105dp"
+                            android:layout_height="150dp"
                             android:background="@color/backgroundColor"
                             android:scaleType="fitXY"
                             app:srcCompat="@drawable/desayuno" />
@@ -169,16 +168,11 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardViewLunch"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="150dp"
                     android:layout_marginBottom="20dp"
                     app:cardBackgroundColor="@color/backgroundColor"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/view"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView8">
-
+                    app:cardCornerRadius="4dp"
+                    app:cardElevation="8dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -188,7 +182,7 @@
                         <ImageView
                             android:id="@+id/imageView93"
                             android:layout_width="228dp"
-                            android:layout_height="105dp"
+                            android:layout_height="150dp"
                             android:background="@color/backgroundColor"
                             android:scaleType="fitXY"
                             app:srcCompat="@drawable/almuerzo" />
@@ -198,7 +192,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:text="ALMMUERZO"
+                            android:text="ALMUERZO"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -209,16 +203,11 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardViewDinner"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="150dp"
                     android:layout_marginBottom="20dp"
                     app:cardBackgroundColor="@color/backgroundColor"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/view"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView8">
-
+                    app:cardCornerRadius="4dp"
+                    app:cardElevation="8dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -228,7 +217,7 @@
                         <ImageView
                             android:id="@+id/imageView92"
                             android:layout_width="228dp"
-                            android:layout_height="105dp"
+                            android:layout_height="150dp"
                             android:background="@color/backgroundColor"
                             android:scaleType="fitXY"
                             app:srcCompat="@drawable/cena_saludable" />
@@ -246,12 +235,9 @@
 
                 </androidx.cardview.widget.CardView>
 
-
             </LinearLayout>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
 
 </RelativeLayout>
