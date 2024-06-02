@@ -212,7 +212,7 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="20dp"
             android:layout_marginHorizontal="30dp"
-            android:text="asdasd"
+            android:text="imc"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"

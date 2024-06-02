@@ -97,7 +97,8 @@ public class ProfileFragment extends Fragment {
             if (user.getWeight() != null && user.getHeight() != null) { // Verificar si los valores de peso y altura son diferentes de null
                 pesoEditText.setText(String.format(Locale.getDefault(), "%.2f", user.getWeight()));
                 alturaEditText.setText(String.format(Locale.getDefault(), "%d", user.getHeight()));
-                calculateAndDisplayIMC(user.getWeight(), user.getHeight(), null);
+                calculateAndDisplayIMC(user.getWeight(), user.getHeight());
+
             } else {
                 // Manejar el caso en el que los valores de peso y altura sean null
                 // Por ejemplo, puedes establecer valores predeterminados o mostrar un mensaje de error
@@ -125,7 +126,6 @@ public class ProfileFragment extends Fragment {
             updateUserData();
         }
     };
-
     private void updateUserData() {
         if (user != null) {
             String pesoString = pesoEditText.getText().toString();
@@ -142,10 +142,10 @@ public class ProfileFragment extends Fragment {
 
                 user.setWeight(weight);
                 user.setHeight(height);
-                calculateAndDisplayIMC(user.getWeight(), user.getHeight(), null);
+                calculateAndDisplayIMC(user.getWeight(), user.getHeight());
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                db.collection("users").document(mAuth.getCurrentUser().getUid()) // Cambiar user.getMail() a mAuth.getCurrentUser().getUid()
+                db.collection("users").document(mAuth.getCurrentUser().getUid())
                         .update("weight", weight, "height", height)
                         .addOnSuccessListener(aVoid -> Log.d("ProfileFragment", "User data updated successfully in Firestore"))
                         .addOnFailureListener(e -> Log.e("ProfileFragment", "Error updating user data in Firestore", e));
@@ -154,6 +154,8 @@ public class ProfileFragment extends Fragment {
             }
         }
     }
+
+
 
 
     private void logoutOperation() {
@@ -179,16 +181,13 @@ public class ProfileFragment extends Fragment {
                 .addOnFailureListener(e -> Log.e("ProfileFragment", "Error querying user document", e));
     }
 
-    private void calculateAndDisplayIMC(Double weight, int height, Double imc) {
+    private void calculateAndDisplayIMC(Double weight, int height) {
         if (weight <= 0 || height <= 0) {
             // Handling the case where weight or height are zero or negative
             return;
         }
 
-        // If imc is null, calculate it; otherwise, use the provided value
-        if (imc == null) {
-            imc = weight / (height * height);
-        }
+        double imc = weight / (height * height) * 10000;
 
         String imcCategory;
         if (imc < 18.5) {
@@ -203,6 +202,7 @@ public class ProfileFragment extends Fragment {
 
         imcTextView.setText(String.format(Locale.getDefault(), "%.2f (%s)", imc, imcCategory));
     }
+
 
 
 }
