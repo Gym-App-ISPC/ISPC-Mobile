@@ -7,8 +7,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
-
-import android.util.Log;
+import android.net.Uri;
+import androidx.annotation.Nullable;
+import com.bumptech.glide.Glide;
+import android.provider.MediaStore;
+import android.app.Activity;
+import android.text.InputType;
+import android.util.Log; // Agregado para importar Log
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +24,9 @@ import android.widget.Toast;
 import android.text.TextWatcher;
 import android.text.Editable;
 import java.util.Locale;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import androidx.appcompat.app.AlertDialog;
+import android.content.DialogInterface;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +38,7 @@ import com.ispc.gymapp.model.User;
 import com.ispc.gymapp.views.activities.ActivityFavoritos;
 import com.ispc.gymapp.views.activities.LoginActivity;
 import com.ispc.gymapp.views.activities.SplashActivity;
+import com.ispc.gymapp.util.Constants; // Importar Constants desde el paquete util
 
 import java.text.DecimalFormat;
 
@@ -39,13 +48,18 @@ import java.text.DecimalFormat;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
-
+    private static final String TAG = "ProfileFragment";
     private User user;
     private EditText pesoEditText;
     private EditText alturaEditText;
     private TextView imcTextView, logout, deleteAccount;
-
     private FirebaseAuth mAuth;
+    private AppCompatImageView perfilImageView; // Declarar perfilImageView como una variable de clase
+
+    private static final int REQUEST_SELECT_IMAGE = 1;
+
+    // Reemplazar "ProfileFragment" con un identificador único para tu clase
+    private static final String LOG_TAG = "ProfileFragment";
 
     public ProfileFragment() {
     }
@@ -82,19 +96,33 @@ public class ProfileFragment extends Fragment {
         deleteAccount = view.findViewById(R.id.deleteAccount);
         mAuth = FirebaseAuth.getInstance();
 
+        // Obtener la URL de la imagen almacenada en Firestore
+        FirebaseUser currentUserFirebase = mAuth.getCurrentUser();
+        if (currentUserFirebase != null) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("users").document(currentUserFirebase.getUid())
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            String imageUrl = documentSnapshot.getString("photoUrl");
+                            if (imageUrl != null && !imageUrl.isEmpty()) {
+                                // Cargar la imagen desde la URL usando Glide
+                                Glide.with(this)
+                                        .load(imageUrl)
+                                        .placeholder(R.drawable.perfil) // Imagen de placeholder mientras se carga la imagen
+                                        .error(R.drawable.perfil) // Imagen de error si falla la carga
+                                        .into(perfilImageView);
+                            }
+                        }
+                    })
+                    .addOnFailureListener(e -> Log.e(TAG, "Error getting user document", e));
+        }
 
         // Obtener el nombre del usuario actual y establecerlo en nameText
         TextView nameText = view.findViewById(R.id.nameText);
         if (user != null) {
-            // Verificar si el nombre del usuario no es nulo ni vacío
-            if (user.getName() != null && !user.getName().isEmpty()) {
-                nameText.setText(user.getName());
-            } else {
-                // Si el nombre del usuario es nulo o vacío, puedes establecer un valor predeterminado
-                nameText.setText("Bienvenido!");
-            }
+            nameText.setText(user.getName()); // Suponiendo que tienes un método getName() en la clase User
         }
-
 
         // Obtener el correo electrónico del usuario actual y establecerlo en email
         TextView emailText = view.findViewById(R.id.email);
@@ -112,27 +140,111 @@ public class ProfileFragment extends Fragment {
         logout.setOnClickListener(view1 -> logoutOperation());
         deleteAccount.setOnClickListener(view1 -> deleteAccountOperation());
 
-        // Verificar si el usuario no es nulo y si las vistas de peso y altura no son nulas antes de establecer los valores y calcular IMC
-        if (user != null && pesoEditText != null && alturaEditText != null) {
-            if (user.getWeight() != null && user.getHeight() != null) { // Verificar si los valores de peso y altura son diferentes de null
-                pesoEditText.setText(String.format(Locale.getDefault(), "%.2f", user.getWeight()));
-                alturaEditText.setText(String.format(Locale.getDefault(), "%d", user.getHeight()));
-                calculateAndDisplayIMC(user.getWeight(), user.getHeight());
-
-            } else {
-                // Manejar el caso en el que los valores de peso y altura sean null
-                // Por ejemplo, puedes establecer valores predeterminados o mostrar un mensaje de error
-                // Aquí puedes decidir qué hacer en este caso
-            }
+        // Cargar la imagen de perfil desde la URL usando Glide
+        perfilImageView = view.findViewById(R.id.perfil);
+        if (currentUser != null && currentUser.getPhotoUrl() != null) {
+            Glide.with(this)
+                    .load(currentUser.getPhotoUrl())
+                    .placeholder(R.drawable.perfil) // Imagen de placeholder mientras se carga la imagen
+                    .error(R.drawable.perfil) // Imagen de error si falla la carga
+                    .into(perfilImageView);
         }
 
-        AppCompatImageView favoritos = view.findViewById(R.id.favoritos);
-        favoritos.setOnClickListener(v -> startActivity(new Intent(getActivity(), ActivityFavoritos.class)));
+        // Configurar el OnClickListener para seleccionar una nueva imagen de perfil
+        perfilImageView.setOnClickListener(v -> {
+            // Aquí puedes abrir un cuadro de diálogo para que el usuario pegue una URL
+            // y luego cargar la imagen desde esa URL
+            showUrlInputDialog();
+        });
 
         return view;
     }
 
+    // Método para mostrar un cuadro de diálogo para ingresar la URL de la imagen
+    private void showUrlInputDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Paste Image URL");
 
+        // Agregar un EditText para que el usuario pegue la URL
+        final EditText input = new EditText(getContext());
+        input.setInputType(InputType.TYPE_CLASS_TEXT); // Usa la variable InputType
+        builder.setView(input);
+
+        // Agregar los botones "Guardar" y "Cancelar"
+        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String imageUrl = input.getText().toString();
+                // Guardar la URL en Firestore
+                saveImageUrlToFirestore(imageUrl);
+            }
+        });
+
+        // Botón Cancelar
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    // Método para guardar la URL de la imagen en Firestore
+    private void saveImageUrlToFirestore(String imageUrl) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("users").document(currentUser.getUid())
+                    .update("photoUrl", imageUrl)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getContext(), "Image URL saved successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e(TAG, "Error saving image URL to Firestore", e);
+                            Toast.makeText(getContext(), "Failed to save image URL", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
+
+
+    // Método para manejar el resultado de la selección de la imagen de perfil
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_SELECT_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
+            Uri selectedImageUri = data.getData();
+            updateProfilePhoto(selectedImageUri);
+        }
+    }
+
+    // Método para actualizar la foto de perfil del usuario en Firebase
+    private void updateProfilePhoto(Uri photoUri) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setPhotoUri(photoUri)
+                .build();
+
+        user.updateProfile(profileUpdates)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "User profile updated.");
+                        // Aquí puedes manejar lo que sucede después de que se actualiza la foto de perfil
+                    } else {
+                        Log.e(TAG, "Failed to update user profile.", task.getException());
+                        // Aquí puedes manejar el caso en el que falla la actualización de la foto de perfil
+                    }
+                });
+    }
 
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -146,6 +258,9 @@ public class ProfileFragment extends Fragment {
             updateUserData();
         }
     };
+
+
+
     private void updateUserData() {
         if (user != null) {
             String pesoString = pesoEditText.getText().toString();
