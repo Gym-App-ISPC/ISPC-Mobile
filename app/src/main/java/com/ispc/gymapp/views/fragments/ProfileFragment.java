@@ -27,6 +27,7 @@ import java.util.Locale;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
+import com.bumptech.glide.request.RequestOptions;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -161,6 +162,7 @@ public class ProfileFragment extends Fragment {
     }
 
     // Método para mostrar un cuadro de diálogo para ingresar la URL de la imagen
+    // Método para mostrar un cuadro de diálogo para ingresar la URL de la imagen
     private void showUrlInputDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Paste Image URL");
@@ -177,6 +179,13 @@ public class ProfileFragment extends Fragment {
                 String imageUrl = input.getText().toString();
                 // Guardar la URL en Firestore
                 saveImageUrlToFirestore(imageUrl);
+                // Cargar automáticamente la imagen después de guardarla
+                Glide.with(ProfileFragment.this)
+                        .load(imageUrl)
+                        .placeholder(R.drawable.perfil)
+                        .error(R.drawable.perfil)
+                        .apply(RequestOptions.circleCropTransform()) // Recortar la imagen de forma circular
+                        .into(perfilImageView);
             }
         });
 
@@ -213,6 +222,7 @@ public class ProfileFragment extends Fragment {
                     });
         }
     }
+
 
 
 
