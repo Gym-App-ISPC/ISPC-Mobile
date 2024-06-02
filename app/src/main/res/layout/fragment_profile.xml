@@ -92,7 +92,7 @@
             android:text="@string/IMCTXT"
             android:textColor="#CECBCE"
             android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/switch1"
+            app:layout_constraintBottom_toTopOf="@+id/btnActualizar"
             app:layout_constraintEnd_toEndOf="@+id/textImc"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -195,18 +195,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/perfil" />
 
-        <Switch
-            android:id="@+id/switch1"
+        <Button
+            android:id="@+id/btnActualizar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-
             android:text="Actualizar datos"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintTop_toBottomOf="@+id/textView18"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView18" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"/>
+
 
         <TextView
             android:id="@+id/textImc"
@@ -219,7 +217,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView18"
-            app:layout_constraintBottom_toTopOf="@+id/switch1"
+            app:layout_constraintBottom_toTopOf="@+id/btnActualizar"
             app:layout_constraintTop_toBottomOf="@+id/altura" />
 
         <TextView
@@ -232,7 +230,7 @@
             app:layout_constraintBottom_toTopOf="@+id/textView21"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/switch1"
+            app:layout_constraintTop_toBottomOf="@+id/btnActualizar"
             app:layout_constraintVertical_bias="0.834" />
 
 
