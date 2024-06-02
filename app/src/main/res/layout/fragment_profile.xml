@@ -33,7 +33,7 @@
                 android:layout_height="45dp"
                 android:onClick="goToRoutine"
                 android:padding="5dp"
-                android:src="@drawable/calendar_check" />
+                android:src="@drawable/exercises_iconred" />
 
             <TextView
                 android:id="@+id/textView14"
@@ -68,7 +68,7 @@
                 android:layout_width="60dp"
                 android:layout_height="46dp"
                 android:padding="5dp"
-                android:src="@drawable/heart_fill" />
+                android:src="@drawable/heartred" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -125,7 +125,8 @@
             android:layout_marginTop="28dp"
             android:drawableStart="@drawable/altura2"
             android:drawablePadding="8dp"
-            android:hint="Altura (m)"
+            android:hint="Altura (cm)"
+            android:text="cm"
             android:imeOptions="flagNoExtractUi"
             android:importantForAutofill="no"
 
@@ -145,7 +146,7 @@
             android:layout_marginBottom="24dp"
 
             android:text="@string/cerrarSesion"
-            android:textColor="#F3B43A"
+            android:textColor="#DC3545"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -200,6 +201,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Actualizar datos"
+            android:background="#DC3545"
             app:layout_constraintTop_toBottomOf="@+id/textView18"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
