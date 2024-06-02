@@ -139,4 +139,14 @@
     <string name="btnGuardar">Guardar</string>
     <string name="btnCancelar">Cancelar</string>
 
+
+    <string name="cartCheckout">Checkout</string>
+    <string-array name="installment_options">
+        <item>1 cuota</item>
+        <item>3 cuotas</item>
+        <item>6 cuotas</item>
+        <item>12 cuotas</item>
+    </string-array>
+
+
 </resources>
