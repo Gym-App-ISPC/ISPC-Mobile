@@ -56,17 +56,16 @@ public class ProfileFragment extends Fragment {
         return fragment;
     }
 
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Obtener el usuario actual de FirebaseAuth
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         // Crear un objeto User a partir del usuario actual si existe
         if (currentUser != null) {
             user = new User();
+            user.setName(currentUser.getDisplayName()); // Obtener el nombre del usuario
             user.setMail(currentUser.getEmail());
             // Puedes establecer otros campos de usuario según sea necesario
         }
@@ -82,6 +81,27 @@ public class ProfileFragment extends Fragment {
         logout = view.findViewById(R.id.textView21);
         deleteAccount = view.findViewById(R.id.deleteAccount);
         mAuth = FirebaseAuth.getInstance();
+
+
+        // Obtener el nombre del usuario actual y establecerlo en nameText
+        TextView nameText = view.findViewById(R.id.nameText);
+        if (user != null) {
+            // Verificar si el nombre del usuario no es nulo ni vacío
+            if (user.getName() != null && !user.getName().isEmpty()) {
+                nameText.setText(user.getName());
+            } else {
+                // Si el nombre del usuario es nulo o vacío, puedes establecer un valor predeterminado
+                nameText.setText("Bienvenido!");
+            }
+        }
+
+
+        // Obtener el correo electrónico del usuario actual y establecerlo en email
+        TextView emailText = view.findViewById(R.id.email);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            emailText.setText(currentUser.getEmail());
+        }
 
         Button btnActualizar = view.findViewById(R.id.btnActualizar);
         btnActualizar.setOnClickListener(v -> updateUserData());
