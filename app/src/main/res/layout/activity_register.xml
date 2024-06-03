@@ -50,8 +50,8 @@
 
     <TextView
         android:id="@+id/btnToLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="105dp"
+        android:layout_height="48dp"
         android:layout_gravity="start"
         android:layout_marginEnd="76dp"
         android:background="@color/transparent"
@@ -191,8 +191,8 @@
 
     <Switch
         android:id="@+id/passwordVisibilitySwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="190dp"
+        android:layout_height="48dp"
         android:text="Mostrar Contraseña"
         app:layout_constraintBottom_toTopOf="@+id/btnRegister"
         app:layout_constraintEnd_toEndOf="parent"

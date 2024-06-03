@@ -12,6 +12,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="35dp"
         android:layout_marginEnd="162dp"
+        android:text="@string/arrow_return_description"
         android:background="@drawable/baseline_arrow_circle_left_24"
         app:layout_constraintBottom_toBottomOf="@+id/btnObNext"
         app:layout_constraintEnd_toStartOf="@+id/btnObNext"
