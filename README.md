@@ -18,24 +18,22 @@ Deben referirse a lo realizado en el Módulo Programador Aplicaciones Móviles m
 
 ## Funciones
 
-* Registro
-* Informacion de ejercicios
-* Informacion de rutinas
-* Informacion de comidas saludables
+* Registro e Inicio de sesión de Usuarios.
+* Panel para administrador para agregar nuevos planes.
+* Suscripción a Planes.
+* Agregar rutinas e informacion de ejercicios.
+* Informacion de comidas saludables.
 
 # Diseño
 
-En el siguiente enlace se puede visualizar el prototipo de diseño del sitio.
+En el siguiente enlace se puede visualizar el prototipo de diseño del sitio [Prototipo](https://www.figma.com/design/hDZKRtDLs86LMZCJbqkNIY/ISPC-MOBILE?node-id=0-1&t=ZLIGOOluyW4utxCh-0).
 
-[Prototipo](https://www.figma.com/proto/hDZKRtDLs86LMZCJbqkNIY/ISPC-MOBILE?type=design&node-id=71-1301&t=osqPw57Un7A80RIn-1&scaling=scale-down&page-id=0%3A1&starting-point-node-id=76%3A898&mode=design)
 
 ### Wiki 📜
-Pódes encontrar mucho más información sobre este proyecto en nuestra [Wiki](https://github.com/Gym-App-ISPC/ISPC-practicas/wiki).
+Pódes encontrar mucho más información sobre este proyecto en nuestra [Wiki](https://github.com/Gym-App-ISPC/ISPC-Mobile/wiki).
 
 ## Autores ✒
-* Carolina Medina - _Dev_
+* Carolina Medina - _Developer_
 * Soledad Mattos - _Developer_
-* Pablo Duarte - _Developer_
 * Pedro Tarrago - _Developer/Scrum Master_
-* Franco Lorca - _Developer_
 * María Paula Tkaczuk - _Developer_
