@@ -15,7 +15,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextCardName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:hint="Nombre en la tarjeta"
             android:inputType="textPersonName"
             android:backgroundTint="@android:color/white"/>
@@ -29,7 +29,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextCardNumber"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:hint="Número de tarjeta"
             android:inputType="number"
             android:backgroundTint="@android:color/white"/>
@@ -51,7 +51,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextExpiryMonth"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:hint="MM"
                 android:inputType="number"
                 android:backgroundTint="@android:color/white"
@@ -77,7 +77,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextExpiryYear"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:hint="YY"
                 android:inputType="number"
                 android:backgroundTint="@android:color/white"
@@ -94,7 +94,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextCVV"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:hint="CVV"
             android:inputType="number"
             android:backgroundTint="@android:color/white"
@@ -105,8 +105,8 @@
     <Spinner
         android:id="@+id/spinnerInstallments"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"/>
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp" />
 
 
 </LinearLayout>

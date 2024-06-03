@@ -14,7 +14,9 @@
     <EditText
         android:id="@+id/editTextNombre"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:hint="Ingresa un nombre"
+        android:textColorHint="@color/secondary"
         />
 
     <TextView
@@ -28,7 +30,9 @@
     <EditText
         android:id="@+id/editTextDescripcion"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:hint="Ingresa una descripción"
+        android:textColorHint="@color/secondary"
         />
 
     <TextView
@@ -42,8 +46,10 @@
     <EditText
         android:id="@+id/editTextPrecio"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"/>
+        android:layout_height="48dp"
+        android:inputType="numberDecimal"
+        android:hint="Ingresa un precio"
+        android:textColorHint="@color/secondary"/>
     <Button
         android:id="@+id/buttonSeleccionarImagenEditada"
         android:layout_width="wrap_content"

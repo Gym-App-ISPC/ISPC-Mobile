@@ -22,7 +22,7 @@
         <EditText
             android:id="@+id/editTextNombre"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginBottom="16dp"
             android:hint="Nombre del plan"
             android:inputType="text"
@@ -32,7 +32,7 @@
         <EditText
             android:id="@+id/editTextDescripcion"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginBottom="16dp"
             android:hint="Descripción del plan"
             android:inputType="textMultiLine"
@@ -42,7 +42,7 @@
         <EditText
             android:id="@+id/editTextPrecio"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginBottom="16dp"
             android:hint="Precio del plan"
             android:inputType="numberDecimal"
