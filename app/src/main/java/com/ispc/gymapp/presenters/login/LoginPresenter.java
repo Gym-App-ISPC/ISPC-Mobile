@@ -43,6 +43,35 @@ public class LoginPresenter {
         this.ctx = ctx;
         this.mAuth = mAuth;
         this.db = db;
+
+
+    }
+    public void obtenerRolUsuario(RolUsuarioCallback callback) {
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        if (firebaseUser != null) {
+            DocumentReference userRef = db.collection("users").document(firebaseUser.getUid());
+            userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    if (documentSnapshot.exists()) {
+                        User user = documentSnapshot.toObject(User.class);
+                        if (user != null) {
+                            String roleName = user.getRole().getName();
+                            callback.onRolUsuarioObtenido(roleName);
+                        }
+                    } else {
+                        callback.onFalloObtenerRolUsuario(new Exception("No such document"));
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    callback.onFalloObtenerRolUsuario(e);
+                }
+            });
+        } else {
+            callback.onFalloObtenerRolUsuario(new Exception("No user is signed in."));
+        }
     }
 
     public void signIn(String email, String password){
@@ -51,18 +80,45 @@ public class LoginPresenter {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
-                            Log.d(TAG, "signInWithEmail:success");
-
-                            Toast.makeText(ctx, "Authentication succeed.",
-                                    Toast.LENGTH_SHORT).show();
-                            ctx.startActivity(new Intent(ctx,MainActivity.class));
+                            FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                            if (firebaseUser != null) {
+                                DocumentReference userRef = db.collection("users").document(firebaseUser.getUid());
+                                userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        if (documentSnapshot.exists()) {
+                                            User user = documentSnapshot.toObject(User.class);
+                                            if (user != null) {
+                                                String roleName = user.getRole().getName();
+                                                if (roleName.equals("ADMIN")) {
+                                                    // Ingresa como administrador
+                                                    Log.d(TAG, "signInWithEmail: success as ADMIN");
+                                                    Toast.makeText(ctx, "Ingresaste como ADMIN.", Toast.LENGTH_SHORT).show();
+                                                    ctx.startActivity(new Intent(ctx, MainActivity.class));
+                                                } else if (roleName.equals("USER")) {
+                                                    // Ingresa como usuario normal
+                                                    Log.d(TAG, "signInWithEmail: success as USER");
+                                                    Toast.makeText(ctx, "Bienvenido USER.", Toast.LENGTH_SHORT).show();
+                                                    ctx.startActivity(new Intent(ctx, MainActivity.class));
+                                                }
+                                            }
+                                        } else {
+                                            Log.d(TAG, "No such document");
+                                        }
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG, "get failed with ", e);
+                                    }
+                                });
+                            } else {
+                                Log.d(TAG, "No user is signed in.");
+                            }
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(ctx, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-
+                            Toast.makeText(ctx, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -122,6 +178,10 @@ public class LoginPresenter {
 
 
 
+    public interface RolUsuarioCallback {
+        void onRolUsuarioObtenido(String roleName);
+        void onFalloObtenerRolUsuario(Exception e);
+    }
 
 
     public void signOut(){

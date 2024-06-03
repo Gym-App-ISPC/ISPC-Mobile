@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="246dp"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/rounded_red"
         android:paddingHorizontal="14dp"
         android:text="@string/login_button"
         app:layout_constraintBottom_toBottomOf="parent"

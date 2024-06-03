@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+
+        <EditText
+            android:id="@+id/editTextNombre"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
+            android:hint="Nombre del plan"
+            android:inputType="text"
+            android:textColorHint="@color/white"/>
+
+
+        <EditText
+            android:id="@+id/editTextDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
+            android:hint="Descripción del plan"
+            android:inputType="textMultiLine"
+            android:textColorHint="@color/white"/>
+
+
+        <EditText
+            android:id="@+id/editTextPrecio"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
+            android:hint="Precio del plan"
+            android:inputType="numberDecimal"
+            android:textColorHint="@color/white"/>
+
+
+        <Button
+            android:id="@+id/buttonSeleccionarImagen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/buttonColor"
+            android:padding="8dp"
+            android:text="Seleccionar Imagen" />
+
+        <ImageView
+            android:id="@+id/imageViewSeleccionada"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="16dp"
+            android:contentDescription="Imagen seleccionada" />
+
+
+
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

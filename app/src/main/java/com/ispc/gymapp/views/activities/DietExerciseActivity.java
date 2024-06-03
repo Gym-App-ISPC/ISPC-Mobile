@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +15,8 @@ import androidx.cardview.widget.CardView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.ispc.gymapp.R;
 
@@ -20,14 +26,19 @@ public class DietExerciseActivity extends AppCompatActivity implements View.OnCl
 
     public FirebaseFirestore db ;
     public FirebaseAuth mAuth;
+    private FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diet_exercise);
+
+        boolean buttonPressed = getIntent().getBooleanExtra("buttonPressed", false);
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_Navigation);
         setupNavigation(bottomNavigationView);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        user = mAuth.getCurrentUser();
 
         CardView cardViewBreakfast = findViewById(R.id.cardViewBreakfast);
         CardView cardViewExercise = findViewById(R.id.cardView);
@@ -36,8 +47,45 @@ public class DietExerciseActivity extends AppCompatActivity implements View.OnCl
         for (CardView card : List.of(cardViewLunch, cardViewExercise, cardViewBreakfast, cardViewDinner)) {
             card.setOnClickListener(this);
         }
+        checkUserHistoryAndModifyCard();
+
 
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkUserHistoryAndModifyCard();
+    }
+    private void checkUserHistoryAndModifyCard() {
+        if (user != null) {
+            DocumentReference userDocRef = db.collection("users").document(user.getUid());
+
+            userDocRef.get().addOnSuccessListener(documentSnapshot -> {
+                if (documentSnapshot.exists()) {
+                    List<String> historialCompras = (List<String>) documentSnapshot.get("historialCompras");
+                    if (historialCompras != null && !historialCompras.isEmpty()) {
+                        // Modificar las propiedades de las vistas
+                        TextView textView8 = findViewById(R.id.textView8);
+                        TextView textView7 = findViewById(R.id.textView7);
+                        ImageView imageView9 = findViewById(R.id.imageView9);
+
+                        if (textView8 != null) textView8.setText("Comienza a disfrutar de tu plan");
+                        if (imageView9 != null) imageView9.setImageResource(R.drawable.ecommerceplanprincipiantes);
+                        if (textView7 != null) textView7.setText("COMENZÁ A ENTRENAR");
+                    } else {
+                        Toast.makeText(this, "No tienes un plan activo.", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(this, "El documento del usuario no existe", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(e -> {
+                Toast.makeText(this, "Error al verificar el historial de compras", Toast.LENGTH_SHORT).show();
+            });
+        } else {
+            Toast.makeText(this, "Usuario no autenticado.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 
     private void setupNavigation(BottomNavigationView bottomNavigationView){

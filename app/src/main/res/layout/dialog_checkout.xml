@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:orientation="vertical"
+    android:background="@color/blue_bold"
+    android:padding="16dp">
+
+    <!-- Campo para el nombre en la tarjeta -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextCardName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Nombre en la tarjeta"
+            android:inputType="textPersonName"
+            android:backgroundTint="@android:color/white"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Campo para el número de tarjeta -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextCardNumber"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Número de tarjeta"
+            android:inputType="number"
+            android:backgroundTint="@android:color/white"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Campos para la fecha de vencimiento de la tarjeta -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <!-- Campo para el mes de vencimiento -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextExpiryMonth"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="MM"
+                android:inputType="number"
+                android:backgroundTint="@android:color/white"
+                android:maxLength="2"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Separador para la fecha de vencimiento -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="4dp"
+            android:text="/"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <!-- Campo para el año de vencimiento -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextExpiryYear"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="YY"
+                android:inputType="number"
+                android:backgroundTint="@android:color/white"
+                android:maxLength="2"/>
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <!-- Campo para el CVV -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextCVV"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="CVV"
+            android:inputType="number"
+            android:backgroundTint="@android:color/white"
+            android:maxLength="4"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Dropdown para la cantidad de cuotas -->
+    <Spinner
+        android:id="@+id/spinnerInstallments"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp" />
+
+
+</LinearLayout>

@@ -6,39 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
     android:backgroundTintMode="add"
-    android:orientation="vertical"
     tools:context=".views.activities.MainActivity">
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="16dp"
-        android:orientation="horizontal">
-
-
-        <!-- ImageView para el icono de notificación -->
-        <ImageView
-            android:id="@+id/notificationIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/notificaciom"
-            android:scaleType="centerInside"
-            android:src="@drawable/baseline_notifications_active_24" />
-
-        <!-- ImageView para la foto de perfil -->
-        <ImageView
-            android:id="@+id/profileImage"
-            android:layout_width="40dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/baseline_person_2_24"
-            android:contentDescription="@string/profile"/>
-    </LinearLayout>
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_Navigation"
@@ -53,7 +21,6 @@
         app:itemTextColor="@drawable/selector"
         app:labelVisibilityMode="selected"
         app:menu="@menu/bottom_menu" />
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -70,62 +37,133 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView7"
-            app:layout_constraintTop_toBottomOf="@+id/imageView7">
+            android:layout_margin="10dp">
+
+            <TextView
+                android:id="@+id/logoTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:layout_marginTop="36dp"
+                android:text="GymApp"
+                android:textColor="#DC3545"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.501"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imageView7"
                 android:layout_width="210dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginBottom="18dp"
+
+                android:layout_marginTop="120dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/personalizado"
-                app:layout_constraintBottom_toTopOf="@+id/textView3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2"
+                app:layout_constraintTop_toBottomOf="@+id/logoTextView"
                 app:srcCompat="@drawable/home" />
+
+            <Button
+                android:id="@+id/btnAcquirePlan"
+                android:layout_width="120dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="211dp"
+                android:layout_marginTop="54dp"
+                android:background="@drawable/rounded_red"
+                android:onClick="textoClickeable"
+                android:text="Adquiri tu plan"
+
+                android:textColor="#151720"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/imageView7"
+                app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+            <Button
+                android:id="@+id/btnOpenWebsite"
+                android:layout_width="120dp"
+                android:layout_height="49dp"
+                android:layout_marginTop="36dp"
+                android:background="@drawable/rounded_blue"
+                android:onClick="textoClickeable"
+                android:text="Ir a GymApp Web"
+                android:textColor="#DC3545"
+                android:textSize="15sp"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/imageView7"
+                app:layout_constraintTop_toBottomOf="@+id/btnAcquirePlan" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/buttonColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnOpenWebsite" />
 
             <TextView
                 android:id="@+id/mainTextTitle"
-                android:layout_width="140dp"
-                android:layout_height="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="60dp"
-                android:layout_weight="1"
-                android:textColor="#F9A826"
-                android:textSize="24sp"
+
+                android:text="Bienvenidos"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/textView2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logoTextView" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:text="Plan de Ejercicios Diarios"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/imageView7"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.109"
+                app:layout_constraintHorizontal_bias="0.062"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.418" />
+                app:layout_constraintTop_toBottomOf="@+id/mainTextTitle"
+                app:layout_constraintVertical_bias="0.753" />
 
             <HorizontalScrollView
                 android:id="@+id/scrollView2"
-                android:layout_width="403dp"
-                android:layout_height="150dp"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
                 android:orientation="horizontal"
                 android:scrollbars="horizontal"
+                app:layout_constraintBottom_toBottomOf="@+id/mainTextTitle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3">
+                app:layout_constraintTop_toBottomOf="@+id/view2"
+                app:layout_constraintVertical_bias="0.0">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="200dp"
                     android:layout_margin="10dp"
                     android:orientation="horizontal">
 
-
                     <ImageView
                         android:layout_width="240dp"
-                        android:layout_height="140dp"
+                        android:layout_height="match_parent"
                         android:layout_marginEnd="10dp"
                         android:contentDescription="@string/principiantes"
                         android:scaleType="fitXY"
@@ -133,7 +171,7 @@
 
                     <ImageView
                         android:layout_width="240dp"
-                        android:layout_height="140dp"
+                        android:layout_height="match_parent"
                         android:layout_marginEnd="10dp"
                         android:contentDescription="@string/intermedios"
                         android:scaleType="fitXY"
@@ -141,55 +179,22 @@
 
                     <ImageView
                         android:layout_width="240dp"
-                        android:layout_height="140dp"
+                        android:layout_height="match_parent"
                         android:layout_marginEnd="10dp"
                         android:contentDescription="@string/avanzados"
                         android:scaleType="fitXY"
                         android:src="@drawable/avanzado" />
 
-
                 </LinearLayout>
             </HorizontalScrollView>
-
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="11dp"
-                android:padding="16dp"
-                android:text="Plan de Ejercicios Diarios"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/imageView7"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mainTextTitle"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:onClick="openExerciseList"
-                android:padding="16dp"
-                android:text="Categoría de ejercicios"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:onClick="openDiet"
+                android:padding="12dp"
                 android:text="Crea tu plan de alimentación semanal"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -200,43 +205,17 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/shapeableImageView"
                 android:layout_width="360dp"
-                android:layout_height="75dp"
-                android:layout_marginTop="25dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="100dp"
                 android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.553"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView9"
-                app:layout_constraintVertical_bias="0.0"
                 app:shapeAppearanceOverlay="@style/imageView"
                 app:srcCompat="@drawable/dieta"
                 app:strokeColor="@null" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="35dp"
-                android:layout_marginBottom="92dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:onClick="textoClickeable"
-                android:text="Adquiri tu plan aqui"
-                android:textColor="#F9A826"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/textView3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView7"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
-
-
 </RelativeLayout>
-
-

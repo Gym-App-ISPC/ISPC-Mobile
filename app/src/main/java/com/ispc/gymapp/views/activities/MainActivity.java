@@ -25,6 +25,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.ispc.gymapp.R;
 import com.ispc.gymapp.model.User;
 import com.ispc.gymapp.presenters.login.LoginPresenter;
+import android.net.Uri;
+
 import com.ispc.gymapp.views.fragments.MealDirectAccessFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private LoginPresenter loginPresenter;
     private User user;
+
 
     @Override
     protected void onStart() {
@@ -73,18 +76,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         textView = findViewById(R.id.mainTextTitle);
 
+
+
+        // Agrega un OnClickListener al botón para abrir la URL
+        findViewById(R.id.btnOpenWebsite).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // URL a abrir
+                String url = "http://localhost:4200/";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_Navigation);
         bottomNavigationView.setSelectedItemId(R.id.home);
 
 
-        ImageView profileImage = findViewById(R.id.profileImage);
-        profileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MiPerfilActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
 
