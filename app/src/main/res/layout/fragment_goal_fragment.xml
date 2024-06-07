@@ -1,73 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
+    android:windowSoftInputMode="adjustResize"
     android:theme="@style/ThemeOverlay.GymApp.FullscreenContainer"
     tools:context=".views.fragments.GoalFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/stepTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="54dp"
-            android:gravity="center"
-            android:keepScreenOn="true"
-            android:textColor="#F9A826"
-            android:textSize="50sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/question"
-            android:layout_width="411dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="180dp"
-            android:gravity="center"
-            android:keepScreenOn="true"
-            android:text="Cuál es tu objetivo?"
-            android:textColor="?attr/fullscreenTextColor"
-            android:textSize="40sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/stepTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="54dp"
+                android:layout_marginBottom="26dp"
+                android:gravity="center"
+                android:keepScreenOn="true"
+                android:textColor="#F9A826"
+                android:textSize="50sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <android.widget.NumberPicker
-            android:id="@+id/grPicker"
-            android:layout_width="0dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="306dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/kgPicker"
-            app:layout_constraintTop_toTopOf="@id/question" />
+            <TextView
+                android:id="@+id/question"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="54dp"
+                android:layout_marginTop="172dp"
+                android:layout_marginEnd="54dp"
+                android:layout_marginBottom="13dp"
+                android:gravity="center"
+                android:keepScreenOn="true"
+                android:text="Cuál es tu objetivo?"
+                android:textColor="@color/buttonColor"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <android.widget.NumberPicker
-            android:id="@+id/kgPicker"
-            android:layout_width="0dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="306dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/grPicker"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/question" />
+            <EditText
+                android:id="@+id/kgEditText"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="124dp"
+                android:layout_marginEnd="16dp"
+                android:hint="Kilogramos"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toStartOf="@id/grEditText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/question" />
 
+            <EditText
+                android:id="@+id/grEditText"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="124dp"
+                android:layout_marginEnd="16dp"
+                android:hint="Gramos"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/kgEditText"
+                app:layout_constraintTop_toBottomOf="@id/question" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-</FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</ScrollView>

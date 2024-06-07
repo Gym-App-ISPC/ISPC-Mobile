@@ -1,4 +1,3 @@
-<!-- item_meal.xml -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,25 +8,32 @@
 
     <ImageView
         android:id="@+id/mealImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="95dp"
-        app:srcCompat="@drawable/almuerzo" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/almuerzo"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:layout_marginBottom="8dp" />
 
     <TextView
         android:id="@+id/nameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="name"
-        android:textStyle="bold" />
+        android:textSize="20sp"
+        android:text="Nombre del platillo"
+        android:textStyle="bold"
+        android:lineSpacingExtra="4dp"
+        android:layout_marginBottom="4dp" />
 
     <TextView
         android:id="@+id/descriptionTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="description"
+        android:text="Descripción del platillo"
         android:maxLines="3"
         android:ellipsize="end"
-        android:textSize="14sp" />
+        android:textSize="16sp"
+        android:lineSpacingExtra="2dp"
+        android:layout_marginBottom="8dp" />
 
 </LinearLayout>

@@ -1,48 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.activities.OnboardingActivityView">
+    tools:context=".views.activities.OnboardingActivityView"
+    android:background="@color/backgroundColor">
 
     <Button
         android:id="@+id/btnObBack"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="162dp"
-        android:text="@string/arrow_return_description"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/baseline_arrow_circle_left_24"
-        app:layout_constraintBottom_toBottomOf="@+id/btnObNext"
-        app:layout_constraintEnd_toStartOf="@+id/btnObNext"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnObNext" />
+        android:contentDescription="@string/arrow_return_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnObNext"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="61dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_button_lower"
         android:drawableEnd="@drawable/baseline_keyboard_arrow_right_24"
         android:paddingHorizontal="20dp"
         android:text="@string/next_fragment"
         android:textColor="@color/backgroundColor"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnObBack" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnObBack"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </androidx.viewpager2.widget.ViewPager2>
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

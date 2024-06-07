@@ -57,7 +57,7 @@
 
             <TextView
                 android:id="@+id/plan_precio"
-                android:layout_width="0dp"
+                android:layout_width="244dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_medium"
@@ -70,6 +70,7 @@
                 android:id="@+id/btn_contratar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button_background"
                 android:backgroundTint="@color/buttonColor"
                 android:fontFamily="@font/roboto_medium"
                 android:text="Contratar"
