@@ -44,6 +44,7 @@ public class ProfileFragment extends Fragment {
     private TextView imcTextView, logout, deleteAccount;
     private FirebaseAuth mAuth;
     private ImageView perfilImageView;
+    private FirebaseUser currentUser;
 
     public ProfileFragment() {
     }
@@ -71,6 +72,9 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         Context context = requireContext();
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
         pesoEditText = view.findViewById(R.id.peso);
         alturaEditText = view.findViewById(R.id.altura);
@@ -103,7 +107,33 @@ public class ProfileFragment extends Fragment {
 
         perfilImageView.setOnClickListener(v -> showUrlInputDialog());
 
+        if (currentUser != null) {
+            showUserData(currentUser);
+        }
+
         return view;
+    }
+    private void showUserData(FirebaseUser user) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").document(user.getUid())
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        // Obtener los datos del usuario
+                        Double peso = documentSnapshot.getDouble("weight");
+                        Integer altura = documentSnapshot.getLong("height").intValue();
+
+                        // Mostrar los datos en los EditTexts
+                        if (peso != null && altura != null) {
+                            pesoEditText.setText(String.valueOf(peso));
+                            alturaEditText.setText(String.valueOf(altura));
+                        }
+
+                        // Calcular y mostrar el IMC
+                        calculateAndDisplayIMC(peso, altura);
+                    }
+                })
+                .addOnFailureListener(e -> Log.e(TAG, "Error getting user document", e));
     }
 
     private void loadProfileImage() {
@@ -238,27 +268,15 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    private void calculateAndDisplayIMC(Double weight, Integer height) { // Altura como Integer
-        if (weight <= 0 || height <= 0) {
-            return;
+    private void calculateAndDisplayIMC(Double weight, Integer height) {
+        // Calcular el IMC si el peso y la altura son válidos
+        if (weight != null && height != null && weight > 0 && height > 0) {
+            double heightInMeters = height / 100.0;
+            double imc = weight / (heightInMeters * heightInMeters);
+
+            // Mostrar el IMC en el TextView correspondiente
+            imcTextView.setText(String.format(Locale.getDefault(), "%.2f", imc));
         }
-
-        double heightInMeters = height / 100.0; // Convertir altura de cm a metros
-        double imc = weight / (heightInMeters * heightInMeters);
-
-        String imcCategory;
-        if (imc < 18.5) {
-            imcCategory = "Underweight";
-        } else if (imc >= 18.5 && imc <= 24.9) {
-            imcCategory = "Normal";
-        } else if (imc >= 25 && imc <= 29.9) {
-            imcCategory = "Overweight";
-        } else {
-            imcCategory = "Obesity";
-        }
-
-        imcTextView.setText(String.format(Locale.getDefault(), "%.2f (%s)", imc, imcCategory));
-
-}
+    }
 }
 
