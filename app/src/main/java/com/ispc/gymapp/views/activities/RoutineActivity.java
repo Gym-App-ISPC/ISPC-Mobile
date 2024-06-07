@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
@@ -38,6 +40,16 @@ public class RoutineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routine);
         setUpRecyclerView();
+
+        // Inicializa la vista del botón y configura el OnClickListener
+        ImageButton fButton = findViewById(R.id.fButton);
+        fButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish(); // Cierra la actividad actual y vuelve a la actividad anterior
+            }
+        });
+
     }
 
     private void getRoutines() {
@@ -66,14 +78,9 @@ public class RoutineActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    public void returnToDescription(View view) {
-        this.finish();
-    }
 
-    public void returnToExerciseList(View view) {
-        Intent intent = new Intent(this, ExerciseList.class);
-        startActivity(intent);
-    }
+
+
 
     private void getUser() {
         FirebaseUser firebaseUser = mAuth.getCurrentUser();

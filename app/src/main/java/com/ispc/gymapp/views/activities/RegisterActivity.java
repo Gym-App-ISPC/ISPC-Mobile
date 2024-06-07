@@ -129,18 +129,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             String mail = registerMail.getText().toString().trim();
             String password = registerPassword.getText().toString().trim();
             String confirmPass = confirmPassword.getText().toString().trim();
+
             if (TextUtils.isEmpty(mail) || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPass)) {
                 Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
             } else if (!password.equals(confirmPass)) {
                 confirmPassword.setError("Las contraseñas no coinciden");
+            } else if (password.length() < 6) { // Comprobación de longitud mínima de la contraseña
+                Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
             } else {
-                // Las contraseñas coinciden y los campos no están vacíos, continuar con el registro
+                // Las contraseñas coinciden, los campos no están vacíos y la contraseña es lo suficientemente larga, continuar con el registro
                 Role role = new Role("USER");
                 User user = new User(mail, password, role);
                 registerPresenter.registerUser(user);
                 dialog.show();
             }
-
         }
 
         if(view.getId() == R.id.btnToLogin){
