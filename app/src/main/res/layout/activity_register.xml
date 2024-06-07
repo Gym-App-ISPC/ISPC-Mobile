@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="144dp"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/button_background"
         android:paddingHorizontal="14dp"
         android:text="@string/register_button"
         android:textColor="@color/backgroundColor"
@@ -68,10 +68,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginEnd="14dp"
-        android:layout_marginBottom="81dp"
+        android:layout_marginBottom="76dp"
         android:text="@string/already_has_acc"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnToLogin" />
+        app:layout_constraintEnd_toStartOf="@+id/btnToLogin"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/registerUsername"
@@ -133,11 +135,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"
-        android:layout_marginTop="7dp"
         android:layout_marginEnd="140dp"
         android:text="@string/app_name_title1"
         android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -145,11 +148,12 @@
         android:id="@+id/slogan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="4dp"
         android:text="@string/slogan"
         android:textColor="@color/secondary"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/textTitle"
+        app:layout_constraintHorizontal_bias="0.53"
         app:layout_constraintStart_toEndOf="@+id/textTitle"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
@@ -158,12 +162,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="102dp"
+        android:layout_marginBottom="20dp"
         android:text="@string/app_name_title2"
         android:textColor="@color/buttonColor"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/slogan"
-        app:layout_constraintStart_toEndOf="@+id/textTitle" />
+        app:layout_constraintBottom_toBottomOf="@+id/slogan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.014"
+        app:layout_constraintStart_toEndOf="@+id/textTitle"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <ImageView
         android:id="@+id/imageView2"

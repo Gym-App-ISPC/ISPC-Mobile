@@ -40,6 +40,8 @@
     <string name="exercisesMenuTitle">Exercises</string>
     <string name="shopMenuTitle">Shop</string>
     <string name="accountMenuTitle">Perfil</string>
+    <string name="step_text_wight">Paso 2</string>
+    <string name="step_text">Paso 3</string>
     <!-- Exercises -->
     <string name="absIntermediate">Abdominales Intermedio</string>
     <string name="chestIntermediate">Pecho Intermedio</string>
@@ -146,6 +148,8 @@
         <item>6 cuotas</item>
         <item>12 cuotas</item>
     </string-array>
+
+
 
 
 </resources>

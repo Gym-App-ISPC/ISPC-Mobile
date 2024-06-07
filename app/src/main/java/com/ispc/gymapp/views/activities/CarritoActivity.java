@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -108,9 +109,19 @@ public class CarritoActivity extends AppCompatActivity {
 
         TextInputEditText editTextCardName = dialogView.findViewById(R.id.editTextCardName);
         TextInputEditText editTextCardNumber = dialogView.findViewById(R.id.editTextCardNumber);
+
         TextInputEditText editTextExpiryMonth = dialogView.findViewById(R.id.editTextExpiryMonth);
+        TextInputLayout expiryMonthLayout = dialogView.findViewById(R.id.expiryMonthLayout);
+        editTextExpiryMonth.addTextChangedListener(new CustomTextWatcher(editTextExpiryMonth, expiryMonthLayout, CustomTextWatcher.ValidationType.EXPIRY_MONTH));
+
         TextInputEditText editTextExpiryYear = dialogView.findViewById(R.id.editTextExpiryYear);
+        TextInputLayout expiryYearLayout = dialogView.findViewById(R.id.expiryYearLayout);
+        editTextExpiryYear.addTextChangedListener(new CustomTextWatcher(editTextExpiryYear, expiryYearLayout, CustomTextWatcher.ValidationType.EXPIRY_YEAR));
+
         TextInputEditText editTextCVV = dialogView.findViewById(R.id.editTextCVV);
+        TextInputLayout cvvLayout = dialogView.findViewById(R.id.cvvLayout);
+        editTextCVV.addTextChangedListener(new CustomTextWatcher(editTextCVV, cvvLayout, CustomTextWatcher.ValidationType.CVV));
+
         Spinner spinnerInstallments = dialogView.findViewById(R.id.spinnerInstallments);
         editTextCardNumber.addTextChangedListener(new CreditCardTextWatcher(editTextCardNumber));
 

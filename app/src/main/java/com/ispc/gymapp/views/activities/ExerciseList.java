@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
@@ -51,6 +52,15 @@ public class ExerciseList extends AppCompatActivity {
                 case 2 -> tab.setText("Avanzado");
             }
         }).attach();
+
+        // Inicializa la vista del botón y configura el OnClickListener
+        ImageButton arrow_return = findViewById(R.id.arrow_return);
+        arrow_return.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish(); // Cierra la actividad actual y vuelve a la actividad anterior
+            }
+        });
     }
 
     public void returnToParent(View view) {

@@ -201,7 +201,7 @@
 
         <Button
             android:id="@+id/btnActualizar"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="Actualizar datos"
             android:background="#DC3545"

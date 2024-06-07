@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="backgroundColor">#1F212E</color>
     <color name="buttonColor">#DC3545</color>
+    <color name="colorButtonPressed">#A61120</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="secondary">#656565</color>
     <color name="light_blue_600">#FF039BE5</color>

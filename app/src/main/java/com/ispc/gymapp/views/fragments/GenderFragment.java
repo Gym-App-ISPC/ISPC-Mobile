@@ -17,19 +17,10 @@ import com.ispc.gymapp.views.viewmodel.RegisterViewModel;
 
 import java.util.HashMap;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link GenderFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class GenderFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_CSTEP_NUMBER = "currentStep";
-    private static final String ARG_TSTEP_NUMBER = "totalSteps";
 
-    // TODO: Rename and change types of parameters
     private RadioButton rbMen;
     private RadioButton rbWomen;
     private RegisterViewModel viewModel;
@@ -39,24 +30,10 @@ public class GenderFragment extends Fragment {
     }
 
 
-    public static GenderFragment newInstance(int currentStep, int totalSteps) {
-        GenderFragment fragment = new GenderFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_CSTEP_NUMBER, currentStep);
-        args.putInt(ARG_TSTEP_NUMBER, totalSteps);
-        fragment.setArguments(args);
-        return fragment;
+    public static GenderFragment newInstance() {
+        return new GenderFragment();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            int mParam1 = getArguments().getInt(ARG_CSTEP_NUMBER);
-            int mParam2 = getArguments().getInt(ARG_CSTEP_NUMBER);
-        }
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,14 +53,7 @@ public class GenderFragment extends Fragment {
                                                            }
                                                        }
         });
-        Bundle args = getArguments();
-        if (args != null) {
-            int currentStep = args.getInt(ARG_CSTEP_NUMBER);
-            int totalSteps = args.getInt(ARG_TSTEP_NUMBER);
 
-            TextView stepTextView = rootView.findViewById(R.id.stepTextView);
-            stepTextView.setText("Paso " + currentStep + " de " + totalSteps);
-        }
         return rootView;
     }
 }

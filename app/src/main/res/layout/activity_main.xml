@@ -71,11 +71,11 @@
 
             <Button
                 android:id="@+id/btnAcquirePlan"
-                android:layout_width="120dp"
+                android:layout_width="112dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="211dp"
                 android:layout_marginTop="54dp"
-                android:background="@drawable/rounded_red"
+                android:background="@drawable/button_background"
                 android:onClick="textoClickeable"
                 android:text="Adquiri tu plan"
 
@@ -88,8 +88,8 @@
 
             <Button
                 android:id="@+id/btnOpenWebsite"
-                android:layout_width="120dp"
-                android:layout_height="49dp"
+                android:layout_width="112dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="36dp"
                 android:background="@drawable/rounded_blue"
                 android:onClick="textoClickeable"
@@ -144,8 +144,8 @@
 
             <HorizontalScrollView
                 android:id="@+id/scrollView2"
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
+                android:layout_width="394dp"
+                android:layout_height="206dp"
                 android:orientation="horizontal"
                 android:scrollbars="horizontal"
                 app:layout_constraintBottom_toBottomOf="@+id/mainTextTitle"

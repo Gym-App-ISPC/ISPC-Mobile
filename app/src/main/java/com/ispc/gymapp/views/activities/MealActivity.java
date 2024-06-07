@@ -3,6 +3,7 @@ package com.ispc.gymapp.views.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -25,7 +26,7 @@ public class MealActivity extends AppCompatActivity implements View.OnClickListe
     public FirebaseFirestore db ;
     public FirebaseAuth mAuth;
     private String data;
-    private FloatingActionButton floatingActionButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +34,16 @@ public class MealActivity extends AppCompatActivity implements View.OnClickListe
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         data = Objects.requireNonNull(getIntent().getExtras()).getString("mealType");
-        floatingActionButton = findViewById(R.id.btnBack);
-        floatingActionButton.setOnClickListener(this);
+
         setUpRecyclerView();
+
+        ImageButton arrow_diet = findViewById(R.id.arrow_diet);
+        arrow_diet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish(); // Cierra la actividad actual y vuelve a la actividad anterior
+            }
+        });
 
     }
 
