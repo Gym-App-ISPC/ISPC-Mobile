@@ -33,7 +33,7 @@ import java.util.UUID;
 
 public class AgregarPlanFragment extends AppCompatDialogFragment {
 
-    private EditText editTextNombre, editTextDescripcion, editTextPrecio;
+    private EditText editTextNombre, editTextDescripcion, editTextPrecio, editTextDetalles;
     private Button buttonSeleccionarImagen;
     private FirebaseFirestore db;
     private Uri imageUri;
@@ -51,6 +51,7 @@ public class AgregarPlanFragment extends AppCompatDialogFragment {
 
         editTextNombre = view.findViewById(R.id.editTextNombre);
         editTextDescripcion = view.findViewById(R.id.editTextDescripcion);
+        editTextDetalles = view.findViewById(R.id.editTextDetalles);
         editTextPrecio = view.findViewById(R.id.editTextPrecio);
         buttonSeleccionarImagen = view.findViewById(R.id.buttonSeleccionarImagen);
         imageViewSeleccionada = view.findViewById(R.id.imageViewSeleccionada);
@@ -119,9 +120,10 @@ public class AgregarPlanFragment extends AppCompatDialogFragment {
     private void agregarPlan(String imageUrl, String planId) {
         String nombre = editTextNombre.getText().toString().trim();
         String descripcion = editTextDescripcion.getText().toString().trim();
+        String detalles = editTextDetalles.getText().toString().trim();
         String precioStr = editTextPrecio.getText().toString().trim();
 
-        if (TextUtils.isEmpty(nombre) || TextUtils.isEmpty(descripcion) || TextUtils.isEmpty(precioStr)) {
+        if (TextUtils.isEmpty(nombre) || TextUtils.isEmpty(descripcion) ||TextUtils.isEmpty(detalles) || TextUtils.isEmpty(precioStr)) {
             Toast.makeText(getContext(), "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -133,14 +135,14 @@ public class AgregarPlanFragment extends AppCompatDialogFragment {
             Toast.makeText(getContext(), "Por favor, ingresa un precio válido", Toast.LENGTH_SHORT).show();
             return;
         }
-        Plan plan = new Plan(nombre, descripcion, precio, imageUrl);
+        Plan plan = new Plan(nombre, descripcion,detalles, precio, imageUrl);
 
         db.collection("planes").add(plan)
                 .addOnSuccessListener(documentReference -> {
                     if (getActivity() != null) {
                         getActivity().runOnUiThread(() -> {
                             Toast.makeText(getActivity(), "Plan agregado exitosamente", Toast.LENGTH_SHORT).show();
-                            listener.onAgregarPlan(nombre, descripcion, precio, imageUrl);
+                            listener.onAgregarPlan(nombre, descripcion, detalles, precio, imageUrl);
                             dismiss();
                         });
                     }
@@ -153,11 +155,11 @@ public class AgregarPlanFragment extends AppCompatDialogFragment {
                         });
                     }
                 });
-        listener.onAgregarPlan(nombre, descripcion, precio, imageUrl);
+        listener.onAgregarPlan(nombre, descripcion,detalles, precio, imageUrl);
         Log.d("AgregarPlanFragment", "Agregando plan en hilo: " + Thread.currentThread().getName());
     }
 
     public interface AgregarPlanDialogListener {
-        void onAgregarPlan(String nombre, String descripcion, double precio, String imageUrl);
+        void onAgregarPlan(String nombre, String descripcion,String detalles, double precio, String imageUrl);
     }
 }

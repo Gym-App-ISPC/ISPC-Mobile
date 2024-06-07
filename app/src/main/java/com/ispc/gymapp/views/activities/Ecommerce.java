@@ -165,17 +165,28 @@ public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanIt
 
         Log.e(TAG, "Error al obtener el rol del usuario: ", e);
     }
+    private boolean isSelectingPlanForEdit = false;
 
     @Override
     public void onPlanItemClick(Plan plan) {
-        mostrarDialogoPlanCompleto(plan); // Show plan details
+        if (!isSelectingPlanForEdit) {
+
+            mostrarDialogoPlanCompleto(plan); // Show plan details
+        } else {
+
+            int position = plans.indexOf(plan);
+
+            planAdapter.setSelectedItem(position);
+        }
     }
+
 
     @Override
     public void onPlanButtonClick(Plan plan) {
-        // Handle button click
-        actualizarBadge();
-        mostrarDialogo(plan); // Assuming this method handles the button action
+        if (!isSelectingPlanForEdit) {
+            actualizarBadge();
+            mostrarDialogo(plan); // Assuming this method handles the button action
+        }
     }
 
 
@@ -184,9 +195,9 @@ public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanIt
     //PROCESO PARA AGREGAR UN PLAN
 
     @Override
-    public void onAgregarPlan(String nombre, String descripcion, double precio, String imageUrl) {
+    public void onAgregarPlan(String nombre, String descripcion,String detalles, double precio, String imageUrl) {
         Log.d(TAG, "onAgregarPlan: Plan agregado con éxito");
-        Plan nuevoPlan = new Plan(nombre, descripcion, precio, imageUrl);
+        Plan nuevoPlan = new Plan(nombre, descripcion,detalles, precio, imageUrl);
         plans.add(nuevoPlan);
         planAdapter.notifyDataSetChanged();
 
@@ -271,6 +282,7 @@ public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanIt
     //PROCESO PARA EDITAR UN PLAN
 
     private void mostrarEditarPlanFragment() {
+        isSelectingPlanForEdit = true;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Seleccionar Plan a Editar");
 
@@ -307,6 +319,7 @@ public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanIt
 
         EditText nombreEditText = view.findViewById(R.id.editTextNombre);
         EditText descripcionEditText = view.findViewById(R.id.editTextDescripcion);
+        EditText detallesEditText = view.findViewById(R.id.editTextDetalles);
         EditText precioEditText = view.findViewById(R.id.editTextPrecio);
         Button seleccionarImagenButton = view.findViewById(R.id.buttonSeleccionarImagenEditada);
         selectedImageView = view.findViewById(R.id.imageVieweditada); // Mantener referencia
@@ -314,6 +327,7 @@ public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanIt
 
         nombreEditText.setText(plan.getNombre());
         descripcionEditText.setText(plan.getDescripcion());
+        detallesEditText.setText(plan.getDetalles());
         precioEditText.setText(String.valueOf(plan.getPrecio()));
         Picasso.get().load(plan.getImagen()).into(selectedImageView);
         seleccionarImagenButton.setOnClickListener(v -> seleccionarImagen());
@@ -323,11 +337,14 @@ public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanIt
 
             String nuevoNombre = nombreEditText.getText().toString().trim();
             String nuevaDescripcion = descripcionEditText.getText().toString().trim();
+            String nuevoDetalle = detallesEditText.getText().toString().trim();
 
             double nuevoPrecio = Double.parseDouble(precioEditText.getText().toString());
             plan.setNombre(nuevoNombre);
             plan.setDescripcion(nuevaDescripcion);
+            plan.setDetalles(nuevoDetalle);
             plan.setPrecio(nuevoPrecio);
+
 
             if (selectedImageUri != null) {
                 guardarImagenYActualizarPlan(plan, selectedImageUri);
@@ -337,7 +354,10 @@ public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanIt
         });
 
 
-        builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss());
+        builder.setNegativeButton("Cancelar", (dialog, which) -> {
+            dialog.dismiss();
+            isSelectingPlanForEdit = false; // Restablece la bandera a false
+        });
 
         builder.create().show();
 
@@ -380,6 +400,10 @@ public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanIt
                     Toast.makeText(Ecommerce.this, "Plan actualizado exitosamente", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> Toast.makeText(Ecommerce.this, "Error al actualizar el plan", Toast.LENGTH_SHORT).show());
+
+        isSelectingPlanForEdit = false; // Restablecer la bandera a false
+        planAdapter.setSelectedItem(-1);
+        planAdapter.notifyDataSetChanged(); // Notificar al RecyclerView sobre el cambio
     }
     private void actualizarPlanEnFirestore(Plan plan) {
         db.collection("planes").document(plan.getId())
@@ -406,6 +430,7 @@ public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanIt
     }
 
     private void mostrarDialogoSeleccionPlan() {
+        isSelectingPlanForEdit = true;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Seleccionar Plan a Eliminar");
 
@@ -428,7 +453,10 @@ public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanIt
         });
 
         // Botón de cancelar
-        builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss());
+        builder.setNegativeButton("Cancelar", (dialog, which) -> {
+            dialog.dismiss();
+            isSelectingPlanForEdit = false; // Restablece la bandera a false
+        });
 
         builder.create().show();
     }
@@ -480,6 +508,10 @@ public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanIt
                         Log.e(TAG, "Error al obtener el documento: ", task.getException());
                     }
                 });
+
+        isSelectingPlanForEdit = false; // Restablecer la bandera a false
+        planAdapter.setSelectedItem(-1);
+        planAdapter.notifyDataSetChanged(); // Notificar al RecyclerView sobre el cambio
     }
     public interface AgregarPlanDialogListener {
         void onAgregarPlan(String nombre, String descripcion, double precio, String imageUrl);

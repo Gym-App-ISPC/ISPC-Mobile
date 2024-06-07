@@ -15,10 +15,11 @@ public class Plan {
         this.id = UUID.randomUUID().toString();
     }
 
-    public Plan(String nombre, String descripcion, double precio, String imagen) {
+    public Plan(String nombre, String descripcion,String detalles, double precio, String imagen) {
         this.id = UUID.randomUUID().toString();
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.detalles = detalles;
         this.precio = precio;
         this.imagen = imagen;
     }

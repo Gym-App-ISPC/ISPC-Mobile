@@ -122,6 +122,12 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 
             itemView.setOnClickListener(this);
         }
+        public void setSelectedItem(int position) {
+            int previousItem = selectedItem;
+            selectedItem = position;
+            notifyItemChanged(previousItem);
+            notifyItemChanged(selectedItem);
+        }
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();

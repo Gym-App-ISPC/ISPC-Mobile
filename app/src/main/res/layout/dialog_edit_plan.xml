@@ -34,6 +34,23 @@
         android:hint="Ingresa una descripción"
         android:textColorHint="@color/secondary"
         />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Detalles del Plan:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextDetalles"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:inputType="textMultiLine"
+        android:maxLines="10"
+        android:scrollbars="vertical"
+        android:hint="Ingresa los detalles del plan"
+        android:textColorHint="@color/secondary"/>
 
     <TextView
         android:layout_width="wrap_content"
