@@ -9,6 +9,7 @@
 
     <!-- Campo para el nombre en la tarjeta -->
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/cardNameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -44,6 +45,7 @@
 
         <!-- Campo para el mes de vencimiento -->
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/expiryMonthLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
@@ -70,6 +72,7 @@
 
         <!-- Campo para el año de vencimiento -->
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/expiryYearLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
@@ -87,6 +90,7 @@
 
     <!-- Campo para el CVV -->
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/cvvLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp">
@@ -98,7 +102,7 @@
             android:hint="CVV"
             android:inputType="number"
             android:backgroundTint="@android:color/white"
-            android:maxLength="4"/>
+            android:maxLength="3"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Dropdown para la cantidad de cuotas -->
