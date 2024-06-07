@@ -27,10 +27,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
+
+    public interface OnPlanItemClickListener {
+        void onPlanItemClick(Plan plan);
+    }
+
+    public interface OnPlanButtonClickListener {
+        void onPlanButtonClick(Plan plan);
+    }
     private Context context;
     private ArrayList<Plan> plans;
     private int selectedItem = RecyclerView.NO_POSITION;
-    private OnPlanClickListener listener;
+    private OnPlanItemClickListener itemClickListener;
+    private OnPlanButtonClickListener buttonClickListener;
 
 
     public int getSelectedPosition() {
@@ -43,13 +52,12 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         notifyItemChanged(selectedItem);
     }
 
-    public interface OnPlanClickListener {
-        void onPlanClick(Plan plan);
-    }
-    public PlanAdapter(Context context, ArrayList<Plan> plans, OnPlanClickListener listener) {
+
+    public PlanAdapter(Context context, ArrayList<Plan> plans, OnPlanItemClickListener itemClickListener, OnPlanButtonClickListener buttonClickListener) {
         this.context = context;
         this.plans = plans;
-        this.listener = listener;
+        this.itemClickListener = itemClickListener;
+        this.buttonClickListener = buttonClickListener;
     }
 
     @NonNull
@@ -67,13 +75,19 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
         holder.precioTextView.setText(String.valueOf(plan.getPrecio()));
         Picasso.get().load(plan.getImagen()).into(holder.imagenImageView);
 
+        holder.itemView.setOnClickListener(v -> {
+            if (itemClickListener != null) {
+                itemClickListener.onPlanItemClick(plan);
+            }
+        });
+
 
         holder.btnContratar.setOnClickListener(v -> {
             Carrito.getInstance().agregarPlan(plan);
             Toast.makeText(context, "Plan agregado al carrito", Toast.LENGTH_SHORT).show();
             notifyDataSetChanged();
-            if (listener != null) {
-                listener.onPlanClick(plan);
+            if (buttonClickListener != null) {
+                buttonClickListener.onPlanButtonClick(plan);
             }
         });
 
@@ -87,6 +101,8 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
     public int getItemCount() {
         return plans.size();
     }
+
+
 
 
     public  class PlanViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

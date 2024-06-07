@@ -42,7 +42,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanClickListener, LoginPresenter.RolUsuarioCallback, AgregarPlanFragment.AgregarPlanDialogListener{
+public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanItemClickListener,PlanAdapter.OnPlanButtonClickListener, LoginPresenter.RolUsuarioCallback, AgregarPlanFragment.AgregarPlanDialogListener{
     PlanAdapter planAdapter;
     ArrayList<Plan> plans;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -167,9 +167,15 @@ public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanCl
     }
 
     @Override
-    public void onPlanClick(Plan plan) {
+    public void onPlanItemClick(Plan plan) {
+        mostrarDialogoPlanCompleto(plan); // Show plan details
+    }
+
+    @Override
+    public void onPlanButtonClick(Plan plan) {
+        // Handle button click
         actualizarBadge();
-        mostrarDialogo(plan);
+        mostrarDialogo(plan); // Assuming this method handles the button action
     }
 
 
@@ -246,7 +252,7 @@ public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanCl
 
     private void setUpRecyclerView() {
         plans = new ArrayList<>();
-        planAdapter = new PlanAdapter(this, plans, this);
+        planAdapter = new PlanAdapter(this, plans, this, this);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setAdapter(planAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -478,6 +484,45 @@ public class Ecommerce extends AppCompatActivity implements PlanAdapter.OnPlanCl
     public interface AgregarPlanDialogListener {
         void onAgregarPlan(String nombre, String descripcion, double precio, String imageUrl);
     }
+    private void mostrarDialogoPlanCompleto(Plan plan) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_plan_details, null);
+        builder.setView(dialogView);
+
+        TextView textViewPlanName = dialogView.findViewById(R.id.textViewPlanName);
+        TextView textViewPlanDescription = dialogView.findViewById(R.id.textViewPlanDescription);
+        TextView textViewPlanDetails = dialogView.findViewById(R.id.textViewPlanDetails);
+
+        textViewPlanName.setText(plan.getNombre());
+        textViewPlanDescription.setText(plan.getDescripcion());
+
+        String detallesFormateados = formatPlanDetails(plan.getDetalles());
+        textViewPlanDetails.setText(detallesFormateados);
+
+        builder.setPositiveButton("Cerrar", (dialog, which) -> dialog.dismiss());
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+    private String formatPlanDetails(String detalles) {
+        // Dividir los detalles por saltos de línea
+        String[] detallesArray = detalles.split("\n");
+
+        // Usar una StringBuilder para construir los detalles formateados
+        StringBuilder formattedDetails = new StringBuilder();
+
+        // Iterar sobre cada detalle
+        for (String detail : detallesArray) {
+            // Agregar una viñeta antes de cada detalle y luego un salto de línea
+            formattedDetails.append("• ").append(detail.trim()).append("\n");
+        }
+
+        // Devolver los detalles formateados como una cadena
+        return formattedDetails.toString();
+    }
+
+
+
+
 
 
 

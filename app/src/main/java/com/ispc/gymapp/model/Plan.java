@@ -9,6 +9,7 @@ public class Plan {
     private String descripcion;
     private double precio;
     private String imagen;
+    private String detalles;
 
     public Plan() {
         this.id = UUID.randomUUID().toString();
@@ -63,5 +64,12 @@ public class Plan {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+    public String getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(String detalles) {
+        this.detalles = detalles;
     }
 }
